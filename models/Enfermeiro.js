@@ -32,6 +32,13 @@ const Enfermeiro = connection.define('enfermeiro',{
       type:Sequelize.STRING,
       allowNull:false
      },
+     provincia:{
+      type:Sequelize.STRING,
+      allowNull:false
+     },municipio:{
+      type:Sequelize.STRING,
+      allowNull:false
+     },
      senha:{
         type:Sequelize.STRING,
         allowNull:false

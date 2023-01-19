@@ -13,9 +13,13 @@ const usuario = require('../middlewares/usuario')
 
 
 
-router.get('/',s,Enfermeiro.index); 
+router.get( '/',(req,res )=>{
+    res.render('inicio/index',{certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info')})
+}); 
 router.get('/logout' ,Conta.logout); 
 router.post('/Autenticar', Conta.Autenticar); //Rota para fazer autenticação
+//Rotas Enfermeiro
+router.get('/DashboardEnfermeiro',usuario,Enfermeiro.DashboardEnfermeiro)
 
 
 //Rotas Administrativas
@@ -29,6 +33,10 @@ router.get('/TranferenciaInterna',usuario,Administracao.TranferenciaInterna)
 router.get('/RelatorioEnfermeiro',usuario,Administracao.RelatorioEnfermeiro)
 router.get('/RelatorioMedico',usuario,Administracao.RelatorioMedico)
 router.get('/listaActividade',usuario,Administracao.listaActividade)
+router.post('/NovoEnfermeiro',usuario,Administracao.NovoEnfermeiro)
+router.post('/NovoMedico',usuario,Administracao.NovoMedico)
+router.get('/DeletarEnfermeiro/:idEnfermeiro',usuario,Administracao.DeletarEnfermeiro)
+router.get('/DeletarMedico/:idMedico',usuario,Administracao.DeletarMedico)
 
 
  //Admin Editar o seu perfil

@@ -17,6 +17,10 @@ const Actividades = connection.define('actividades',{
       type:Sequelize.STRING,
       allowNull:false
    },
+   email:{
+      type:Sequelize.STRING,
+      allowNull:false
+   },
   estado:{
   type:Sequelize.INTEGER,
   allowNull:false,

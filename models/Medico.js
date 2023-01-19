@@ -40,6 +40,13 @@ const Medico = connection.define('medico',{
         allowNull:false,
         default:0
      },
+     provincia:{
+      type:Sequelize.STRING,
+      allowNull:false
+     },municipio:{
+      type:Sequelize.STRING,
+      allowNull:false
+     },
      acesso:{
       type:Sequelize.INTEGER,
       allowNull:false,

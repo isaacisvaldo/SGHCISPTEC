@@ -4,7 +4,7 @@ function adminAuth(req, res, next){
          next();
        
        
-    }else if(req.session.cliente != undefined){
+    }else if(req.session.Enfermeiro != undefined){
         next()
     }else{
         res.redirect("/");

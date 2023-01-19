@@ -1,4 +1,4 @@
-const Cliente = require('../models/Enfermeiro');
+
 const Enfermeiro = require('../models/Enfermeiro');
 const Medico = require('../models/Medico')
 const Admin = require('../models/Admin');
@@ -161,58 +161,77 @@ class AdminController {
  
   
     //Fim Listar
-    async NovoAdmin(req, res) {
+    async NovoEnfermeiro(req, res) {
         try {
 
             console.log(req.User)//pega os dados dele
-            const { nome, email, whatsaap, username, senha, senha2, nif } = req.body;
+            const { nome, email, telefone, username, senha, senha2, nif,provincia,municipio } = req.body;
             if (nome.length < 5) {
-                res.json({ err: "Nome demasiado Curto" });
+                req.flash('errado', "Nome demasiado Curto");
+                res.redirect('/listaEnfermeiro')
 
             } else if ((/[A-Z]/.test(username))) {
                 console.log((/[A-Z]/.test(username)))
+                req.flash('errado', "user nao pode ter letra Maiscula");
+                res.redirect('/listaEnfermeiro')
 
-                res.json({ err: "user nao pode ter letra Maiscula" });
+             
             } else if ((/\s/g.test(username))) {
+                req.flash('errado', "User nao pode ter espaço");
+                res.redirect('/listaEnfermeiro')
 
-
-                res.json({ err: "User nao pode ter espaço" });
+               
             } else if (!(/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email))) {
-
-                res.json({ err: "E-mail invalido" });
+                req.flash('errado', "E-mail invalido");
+                res.redirect('/listaEnfermeiro')
+              
             } else if (senha.length < 8) {
-
-                res.json({ err: "Senha muito fraca" });
+                req.flash('errado', "Senha muito fraca");
+                res.redirect('/listaEnfermeiro')
+               
             } else if (senha != senha2) {
-
-                res.json({ err: "Senhas Diferentes" });
-            } else if (!(/^[9]{1}[0-9]{8}$/.test(whatsaap))) {
-
-                res.json({ err: "Numero de Telefone incorreto" });
+                req.flash('errado', "Senhas Diferentes");
+                res.redirect('/listaEnfermeiro')
+             
+            } else if (!(/^[9]{1}[0-9]{8}$/.test(telefone))) {
+                req.flash('errado', "Numero de Telefone incorreto");
+                res.redirect('/listaEnfermeiro')
+              
 
             } else if (!(/^[0-9]{9}[A-Z]{2}[0-9]{3}$/.test(nif))) {
-
-                res.json({ err: "NIF incorreto" });
+                req.flash('errado', "Nif incorrecto");
+                res.redirect('/listaEnfermeiro')
+               
             } else {
-                const cliente = await Cliente.findOne({ where: { [Op.or]: [{ email: email }, { username: username }, { whatsaap: whatsaap }] } }).catch(err => { console.log(err) })
-                const admin = await Admin.findOne({ where: { [Op.or]: [{ email: email }, { username: username }, { whatsaap: whatsaap }] } }).catch(err => { console.log(err) })
-                if (!cliente) {
+                const enfermeiro = await Enfermeiro.findOne({ where: { [Op.or]: [{ email: email }, { username: username }, { telefone: telefone }] } }).catch(err => { console.log(err) })
+                const admin = await Admin.findOne({ where: { [Op.or]: [{ email: email }, { username: username }, { telefone: telefone }] } }).catch(err => { console.log(err) })
+                const medico = await Medico.findOne({ where: { [Op.or]: [{ email: email }, { username: username }, { telefone: telefone }] } }).catch(err => { console.log(err) })
+                if (!enfermeiro) {
                     if (!admin) {
+                        if(!medico){
                         const image = (req.file) ? req.file.filename : 'user.png';
                         console.log("Posso cadastrar co  exito !")
                         var salt = bcrypt.genSaltSync(10);
                         var hash = bcrypt.hashSync(senha, salt);
-                        const admin = await Admin.create({ image, nome, email, whatsaap, username, senha: hash, nif, role: 0 }).catch(err => { console.log(err); req.flash('info', "Occoreeu um problema") });
-                        res.json({ certo: "Conta criada com sucesso" });
-                        console.log(admin)
+                        const admin = await Enfermeiro.create({ image, nome, email, telefone,provincia,municipio, username, senha: hash, nif, estado: 0,acesso:0 }).catch(err => { console.log(err); req.flash('info', "Occoreeu um problema") });
+                        
+                        req.flash('certo', "Conta criada com sucesso");
+                        res.redirect('/listaEnfermeiro')
                     } else {
-
-                        res.json({ err: "Dados ja Cadastrado" });
+                        req.flash('errado', "Dados ja Cadastrado");
+                        res.redirect('/listaEnfermeiro')
+                        
+                    }
+                    } else {
+                        req.flash('errado', "Dados ja Cadastrado");
+                        res.redirect('/listaEnfermeiro')
+                        
                     }
 
                 } else {
-
-                    res.json({ err: "Dados ja Cadastrado" });
+                    req.flash('errado', "Dados ja Cadastrado");
+                    res.redirect('/listaEnfermeiro')
+                    
                 }
             }
 
@@ -222,36 +241,137 @@ class AdminController {
             console.log(error)
         }
     }
-    async alterarSenha(req, res) {
-        const { senhaatual, senha, senha2 } = req.body
-        console.log(senhaatual, senha, senha2)
-        const idAdmin = req.session.admin.idAdmin
-        if (senha != senha2) {
-            req.flash('errado', "Senhas Diferentes");
-            res.redirect('/perfilAdmin')
-        } else if (senha.length < 6) {
-            req.flash('errado', "Senha Muito fraca");
-            res.redirect('/perfilAdmin')
-        } else {
-            const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
-            var correct = bcrypt.compareSync(senhaatual, admin.senha);
-            if (correct) {
+    async NovoMedico(req, res) {
+        try {
 
-                var salt = bcrypt.genSaltSync(10);
-                var hash = bcrypt.hashSync(senha, salt);
-                const admin = await Admin.update({ senha: hash }, { where: { idAdmin: idAdmin } }).catch(err => { console.log(err); req.flash('info', "Occoreeu um problema") });
-                req.flash('certo', "Senhas Alterado com sucesso!");
-                res.redirect('/perfilAdmin')
+            console.log(req.User)//pega os dados dele
+            const { nome, email, telefone, username, senha, senha2, nif,provincia,municipio } = req.body;
+            if (nome.length < 5) {
+                req.flash('errado', "Nome demasiado Curto");
+                res.redirect('/listaMedico')
+
+            } else if ((/[A-Z]/.test(username))) {
+                console.log((/[A-Z]/.test(username)))
+                req.flash('errado', "user nao pode ter letra Maiscula");
+                res.redirect('/listaMedico')
+
+             
+            } else if ((/\s/g.test(username))) {
+                req.flash('errado', "User nao pode ter espaço");
+                res.redirect('/listaMedico')
+
+               
+            } else if (!(/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email))) {
+                req.flash('errado', "E-mail invalido");
+                res.redirect('/listaMedico')
+              
+            } else if (senha.length < 8) {
+                req.flash('errado', "Senha muito fraca");
+                res.redirect('/listaMedico')
+               
+            } else if (senha != senha2) {
+                req.flash('errado', "Senhas Diferentes");
+                res.redirect('/listaMedico')
+             
+            } else if (!(/^[9]{1}[0-9]{8}$/.test(telefone))) {
+                req.flash('errado', "Numero de Telefone incorreto");
+                res.redirect('/listaMedico')
+              
+
+            } else if (!(/^[0-9]{9}[A-Z]{2}[0-9]{3}$/.test(nif))) {
+                req.flash('errado', "Nif incorrecto");
+                res.redirect('/listaMedico')
+               
             } else {
-                req.flash('errado', "Senha atual Errada!");
-                res.redirect('/perfilAdmin')
+                const enfermeiro = await Enfermeiro.findOne({ where: { [Op.or]: [{ email: email }, { username: username }, { telefone: telefone }] } }).catch(err => { console.log(err) })
+                const admin = await Admin.findOne({ where: { [Op.or]: [{ email: email }, { username: username }, { telefone: telefone }] } }).catch(err => { console.log(err) })
+                const medico = await Medico.findOne({ where: { [Op.or]: [{ email: email }, { username: username }, { telefone: telefone }] } }).catch(err => { console.log(err) })
+                if (!enfermeiro) {
+                    if (!admin) {
+                        if(!medico){
+                        const image = (req.file) ? req.file.filename : 'user.png';
+                        console.log("Posso cadastrar co  exito !")
+                        var salt = bcrypt.genSaltSync(10);
+                        var hash = bcrypt.hashSync(senha, salt);
+                        const medico = await Medico.create({ image, nome, email, telefone,provincia,municipio, username, senha: hash, nif, estado: 0,acesso:0 }).catch(err => { console.log(err); req.flash('info', "Occoreeu um problema") });
+                        
+                        req.flash('certo', "Conta criada com sucesso");
+                        res.redirect('/listaMedico')
+                    } else {
+                        req.flash('errado', "Dados ja Cadastrado");
+                        res.redirect('/listaMedico')
+                        
+                    }
+                    } else {
+                        req.flash('errado', "Dados ja Cadastrado");
+                        res.redirect('/listaMedico')
+                        
+                    }
 
+                } else {
+                    req.flash('errado', "Dados ja Cadastrado");
+                    res.redirect('/listaMedico')
+                    
+                }
             }
+
+
+        } catch (error) {
+            res.json({ erro: "Houve um problema" })
+            console.log(error)
         }
-
-
-
     }
+    async DeletarEnfermeiro(req, res) {
+        try {
+            const { idEnfermeiro } = req.params;
+            if (!isNaN(idEnfermeiro)) {
+                const enfermeiro = await Enfermeiro.destroy({ where: { idEnfermeiro: idEnfermeiro } })
+                if (enfermeiro) {
+                    req.flash('certo', "Enfermeiro eliminado com sucesso!");
+                    res.redirect('/listaEnfermeiro')
+
+                } else {
+                    req.flash('errado', "Utilizador não Eliminado!");
+                    res.redirect('/listaEnfermeiro')
+                }
+            } else {
+                req.flash('errado', "Ocorreu um problema!");
+                res.redirect('/listaEnfermeiro')
+            }
+
+
+
+        } catch (error) {
+            res.json({ errado: "Ocorreu um problema" })
+            console.log(error)
+        }
+    }
+    async DeletarMedico(req, res) {
+        try {
+            const { idMedico } = req.params;
+            if (!isNaN(idMedico)) {
+                const medico = await Medico.destroy({ where: { idMedico: idMedico } })
+                if (medico) {
+                    req.flash('certo', "Medico eliminado com sucesso!");
+                    res.redirect('/listaMedico')
+
+                } else {
+                    req.flash('errado', "Utilizador não Eliminado!");
+                    res.redirect('/listaMedico')
+                }
+            } else {
+                req.flash('errado', "Ocorreu um problema!");
+                res.redirect('/listaMedico')
+            }
+
+
+
+        } catch (error) {
+            res.json({ errado: "Ocorreu um problema" })
+            console.log(error)
+        }
+    }
+
     async EditarAdmin(req, res) {
         try {
 
@@ -299,71 +419,9 @@ class AdminController {
     }
 
 
-    async ListarUmAdmin(req, res) {
-        try {
-            console.log(req.Adm)//pega os dados do wey logado
-            const { idAdmin } = req.params;
-            const admin = await Admin.findByPk(idAdmin).catch(err => { console.log(err) })
-            res.json({ admin })
 
+  
 
-        } catch (error) {
-            res.send("Ocorreu um problema")
-            console.log(error)
-        }
-    }
-    //Deletar
-    async DeletarCliente(req, res) {
-        try {
-            const { idCliente } = req.params;
-            if (!isNaN(idCliente)) {
-                const cliente = await Cliente.destroy({ where: { idCliente: idCliente } })
-                if (cliente) {
-                    req.flash('certo', "Cliente eliminado com sucesso!");
-                    res.redirect('/listaUsuario')
-
-                } else {
-                    req.flash('errado', "Utilizador não Eliminado!");
-                    res.redirect('/listaUsuario')
-                }
-            } else {
-                req.flash('errado', "Ocorreu um problema!");
-                res.redirect('/listaUsuario')
-            }
-
-
-
-        } catch (error) {
-            res.json({ errado: "Ocorreu um problema" })
-            console.log(error)
-        }
-    }
-    async DeletarAdmin(req, res) {
-        try {
-            const { idAdmin } = req.params;
-            if (!isNaN(idAdmin)) {
-                const admin = await Admin.destroy({ where: { idAdmin: idAdmin } })
-                if (admin) {
-                    req.flash('certo', "Admin eliminado com sucesso!");
-                    res.redirect('/ListarAdmins')
-
-                } else {
-                    req.flash('errado', "Admin não Eliminado!");
-                    res.redirect('/ListarAdmins')
-                }
-            } else {
-
-                req.flash('errado', "Ocorreu um problema ao deletar!");
-                res.redirect('/ListarAdmins')
-            }
-
-
-
-        } catch (error) {
-            res.send("Ocorreu um problema")
-            console.log(error)
-        }
-    }
     async DeletarActividade(req, res) {
         try {
             const { idActividade } = req.params;
@@ -402,7 +460,7 @@ class AdminController {
 
                 req.flash('errado', "E-mail Invalido")
                 res.redirect('/');
-            } else if (!(/^[9]{1}[0-9]{8}$/.test(whatsaap))) {
+            } else if (!(/^[9]{1}[0-9]{8}$/.test(telefone))) {
 
 
                 req.flash('errado', "Numero de Telefone incorreto")
@@ -447,12 +505,12 @@ class AdminController {
             const token = req.session.admin.token
             const idAdmin = req.session.admin.idAdmin
             const ins = await Inscritos.findAll({}).catch(err => { console.log(err) })
-            const feedbak = await Feedbak.findAll({ where: { estadoFeedbak: 1 }, include: [{ model: Cliente }] }).catch(err => { console.log(err); });
+            const feedbak = await Feedbak.findAll({ where: { estadoFeedbak: 1 }, include: [{ model: Enfermeiro }] }).catch(err => { console.log(err); });
 
-            const cliente = await Cliente.findAll({}).catch(err => { console.log(err) })
+            const cliente = await Enfermeiro.findAll({}).catch(err => { console.log(err) })
             const solicitacao = await Solicitacao.findAll({ where: { estado: 0 } }).catch(err => { console.log(err) })
             const parceiros = await Parceiros.findAll().catch(err => { console.log(err) })
-            const actividades = await Actividade.findAll({ include: [{ model: Cliente }] }).catch(err => { console.log(err) })
+            const actividades = await Actividade.findAll({ include: [{ model: Enfermeiro }] }).catch(err => { console.log(err) })
             const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
 
 
@@ -471,12 +529,12 @@ class AdminController {
             const token = req.session.admin.token
             const idAdmin = req.session.admin.idAdmin
             const ins = await Inscritos.findAll({}).catch(err => { console.log(err) })
-            const feedbak = await Feedbak.findAll({ where: { estadoFeedbak: 1 }, include: [{ model: Cliente }] }).catch(err => { console.log(err); });
+            const feedbak = await Feedbak.findAll({ where: { estadoFeedbak: 1 }, include: [{ model: Enfermeiro }] }).catch(err => { console.log(err); });
 
-            const cliente = await Cliente.findAll({}).catch(err => { console.log(err) })
+            const cliente = await Enfermeiro.findAll({}).catch(err => { console.log(err) })
             const solicitacao = await Solicitacao.findAll({ where: { estado: 0 } }).catch(err => { console.log(err) })
             const parceiros = await Parceiros.findAll().catch(err => { console.log(err) })
-            const actividades = await Actividade.findAll({ include: [{ model: Cliente }] }).catch(err => { console.log(err) })
+            const actividades = await Actividade.findAll({ include: [{ model: Enfermeiro }] }).catch(err => { console.log(err) })
             const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
 
 

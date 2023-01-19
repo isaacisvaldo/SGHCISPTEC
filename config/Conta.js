@@ -19,23 +19,23 @@ class Conta{
                 const enfermeiro = await Enfermeiro.findOne({ where: { [Op.or]: [{ email: email }, { username: email }] }}).catch(err => { console.log(err) })
                 const admin = await Admin.findOne({ where: { [Op.or]: [{ email: email }, { username: email }] } }).catch(err => { console.log(err) })
                 if(enfermeiro != undefined){
-                    var correct = bcrypt.compareSync(senha, Enfermeiro.senha);
+                    var correct = bcrypt.compareSync(senha, enfermeiro.senha);
                     if(correct){
                      
     
-                      jwt.sign({idEnfermeiro: Enfermeiro.idEnfermeiro, email: Enfermeiro.email,acesso:0},JWTSecret,{expiresIn:'48h'}, async (err, token) => {
+                      jwt.sign({idEnfermeiro: enfermeiro.idEnfermeiro, email: enfermeiro.email,acesso:0},JWTSecret,{expiresIn:'48h'}, async (err, token) => {
                             if(err){
                                 res.status(400);
                                 req.flash('errado', "Erro ao Gerar Token") 
                                 res.redirect('/')
                             }else{
-                                
+                               console.log(enfermeiro) 
                                 req.session.Enfermeiro = {
                                     token:token,
-                                    idEnfermeiro: Enfermeiro.idEnfermeiro,
+                                    idEnfermeiro: enfermeiro.idEnfermeiro,
                                     
                                  }
-                                res.redirect('/Enfermeiro')
+                                res.redirect('/DashboardEnfermeiro')
                                
                                
                             }
