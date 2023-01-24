@@ -7,9 +7,9 @@ const  Enfermeiro=require('../controllers/EnfermeiroController');
 //middlewares
 const foto = require('../config/upload')
 const AuthAdmin = require('../middlewares/adminAuth')
-const AuthCliente = require('../middlewares/clienteAuth')
+const EnfAuth = require('../middlewares/enferauth')
 const s = require('../middlewares/sessao')
-const usuario = require('../middlewares/usuario')
+
 
 
 
@@ -19,24 +19,27 @@ router.get( '/',(req,res )=>{
 router.get('/logout' ,Conta.logout); 
 router.post('/Autenticar', Conta.Autenticar); //Rota para fazer autenticação
 //Rotas Enfermeiro
-router.get('/DashboardEnfermeiro',usuario,Enfermeiro.DashboardEnfermeiro)
+router.get('/DashboardEnfermeiro',EnfAuth,Enfermeiro.DashboardEnfermeiro)
+router.get('/HistoricosClinicos',EnfAuth,Enfermeiro.HistoricosClinicos)
+router.post('/NovoHistorico',EnfAuth,Enfermeiro.NovoHistorico)
+router.get('/DeletarHistorico/:idHistorico',EnfAuth,Enfermeiro.DeletarHistorico)
 
 
 //Rotas Administrativas
-router.get('/Dashboard',usuario,Administracao.Dashboard)
-router.get('/perfilAdmin',usuario,Administracao.perfilAdmin)
-router.get('/listaEnfermeiro',usuario,Administracao.listaEnfermeiro)
-router.get('/listaMedico',usuario,Administracao.listaMedico)
-router.get('/listaHistoricos',usuario,Administracao.listaHistoricos)
-router.get('/TranferenciaExterna',usuario,Administracao.TranferenciaExterna)
-router.get('/TranferenciaInterna',usuario,Administracao.TranferenciaInterna)
-router.get('/RelatorioEnfermeiro',usuario,Administracao.RelatorioEnfermeiro)
-router.get('/RelatorioMedico',usuario,Administracao.RelatorioMedico)
-router.get('/listaActividade',usuario,Administracao.listaActividade)
-router.post('/NovoEnfermeiro',usuario,Administracao.NovoEnfermeiro)
-router.post('/NovoMedico',usuario,Administracao.NovoMedico)
-router.get('/DeletarEnfermeiro/:idEnfermeiro',usuario,Administracao.DeletarEnfermeiro)
-router.get('/DeletarMedico/:idMedico',usuario,Administracao.DeletarMedico)
+router.get('/Dashboard',AuthAdmin,Administracao.Dashboard)
+router.get('/perfilAdmin',AuthAdmin,Administracao.perfilAdmin)
+router.get('/listaEnfermeiro',AuthAdmin,Administracao.listaEnfermeiro)
+router.get('/listaMedico',AuthAdmin,Administracao.listaMedico)
+router.get('/listaHistoricos',AuthAdmin,Administracao.listaHistoricos)
+router.get('/TranferenciaExterna',AuthAdmin,Administracao.TranferenciaExterna)
+router.get('/TranferenciaInterna',AuthAdmin,Administracao.TranferenciaInterna)
+router.get('/RelatorioEnfermeiro',AuthAdmin,Administracao.RelatorioEnfermeiro)
+router.get('/RelatorioMedico',AuthAdmin,Administracao.RelatorioMedico)
+router.get('/listaActividade',AuthAdmin,Administracao.listaActividade)
+router.post('/NovoEnfermeiro',AuthAdmin,Administracao.NovoEnfermeiro)
+router.post('/NovoMedico',AuthAdmin,Administracao.NovoMedico)
+router.get('/DeletarEnfermeiro/:idEnfermeiro',AuthAdmin,Administracao.DeletarEnfermeiro)
+router.get('/DeletarMedico/:idMedico',AuthAdmin,Administracao.DeletarMedico)
 
 
  //Admin Editar o seu perfil

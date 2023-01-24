@@ -77,10 +77,10 @@ class AdminController {
     async listaHistoricos(req, res) {
         try {
             const idAdmin = req.session.admin.idAdmin
-            const historicos = await Historicos.findAll({}).catch(err => { console.log(err) })
+            const historico = await Historicos.findAll({}).catch(err => { console.log(err) })
             const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
             const actividades = await Actividades.findAll({}).catch(err => { console.log(err) })
-            res.render('Admin/historicoClinico', { historicos,actividades, admin, certo: req.flash('certo'), errado: req.flash('errado'), info: req.flash('info') })
+            res.render('Admin/historicoClinico', { historico,actividades, admin, certo: req.flash('certo'), errado: req.flash('errado'), info: req.flash('info') })
 
 
         } catch (error) {

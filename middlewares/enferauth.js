@@ -1,5 +1,5 @@
-function adminAuth(req, res, next){
-    if(req.session.admin != undefined){
+function enferauth(req, res, next){
+    if(req.session.Enfermeiro != undefined){
         
          next();
        
@@ -9,4 +9,4 @@ function adminAuth(req, res, next){
     }
  }
  
- module.exports = adminAuth
+ module.exports = enferauth

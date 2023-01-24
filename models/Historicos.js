@@ -7,15 +7,60 @@ const Historico = connection.define('historico',{
       allowNull:false,
       primaryKey:true
          },
-      detalheHistorico:{
-          type:Sequelize.TEXT,
-          allowNull:false
-       },
-      estadoHistorico:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-        default:0
-     },
+         nomePaciente:{
+            type:Sequelize.TEXT,
+            allowNull:false
+         },
+         sexoPaciente:{
+            type:Sequelize.TEXT,
+            allowNull:false
+         },
+         nascimentoPaciente:{
+            type:Sequelize.DATEONLY,
+            allowNull:false
+         },
+         profissaoPaciente:{
+            type:Sequelize.TEXT,
+            allowNull:false
+         },
+         enderecoPaciente:{
+           
+               type:Sequelize.TEXT,
+               allowNull:false
+           
+         },
+         provincia:{
+            type:Sequelize.STRING,
+            allowNull:false
+           },municipio:{
+            type:Sequelize.STRING,
+            allowNull:false
+           },
+         telefonePaciente:{
+            type:Sequelize.INTEGER,
+            allowNull:false
+         },
+         biPaciente:{
+            type:Sequelize.TEXT,
+            allowNull:false
+         },
+         alturaPaciente:{
+            type:Sequelize.FLOAT,
+            allowNull:false
+         },
+         pesoPaciente:{
+            type:Sequelize.FLOAT,
+            allowNull:false
+         },
+         remediosPaciente:{
+            type:Sequelize.TEXT,
+            allowNull:false
+         },
+         substToxicaPaciente:{
+            type:Sequelize.TEXT,
+            allowNull:false
+         },
+    
      horaHistorico:{
       type:Sequelize.TIME,
       allowNull:false

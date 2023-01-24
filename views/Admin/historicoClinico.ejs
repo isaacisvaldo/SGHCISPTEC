@@ -54,71 +54,88 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h5 class="card-title mb-0">Historicos Clinicos</h5>
+                                        <h5 class="card-title mb-0">Tabela dos Historicos</h5>
                                     </div>
                                     <table id="datatables-column-search-select-inputs" class="table table-striped"
                                         style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Idade</th>
+                                                <th>Genero</th>
+                                                <th>BI*</th>
                                                 <th>Telefone*</th>
-                                                <th>Nif*</th>
+                                                <th>altura</th>
+                                                <th>Peso</th>
                                                 <th>Data</th>
-                                                
+                                                <th>Hora</th>
                                                 <th>Acção</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                          
-                                            <tr>
-                                                <td>
-                                                    Tseste 1
-                                                </td>
-                                                <td>
-                                                    Tseste 1
-                                                </td>
+                                            <% historico.reverse().map(hist=>{ %>
+                                                <tr>
+                                                    <td>
+                                                        <%= hist.nomePaciente %>
+                                                    </td>
+                                                    <td>
+                                                        <%= hist.sexoPaciente %>
+                                                    </td>
 
-                                                <td>
-                                                    Tseste 1
-                                                </td>
-                                                <td>
-                                                    Tseste 1
-                                                </td>
+                                                    <td>
+                                                        <%= hist.biPaciente %>
+                                                    </td>
+                                                    <td>
+                                                        <%= hist.telefonePaciente %>
+                                                    </td>
 
-                                                <td>
-                                                    Tseste 1
-                                                </td>
-                                                
-                                                <td>
-                                                    <div class="btn-group btn-group-sm">
-                                                        <button type="button" class="btn btn-info dropdown-toggle"
-                                                            data-bs-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            Info
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="#">Ver</a>                                                                       
-                                                            <a class="dropdown-item" href="#">editar</a>
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#"onclick="confirmar( `1`)">Eliminar</a>
+                                                    <td>
+                                                        <%= hist.alturaPaciente %>
+                                                    </td>
+                                                    <td>
+                                                        <%= hist.pesoPaciente %>
+                                                    </td>
+                                                    <td>
+                                                        <%= hist.createdAt %>
+                                                    </td>
+                                                    <td>
+                                                        <%= hist.horaHistorico %>
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="btn-group btn-group-sm">
+                                                            <button type="button" class="btn btn-info dropdown-toggle"
+                                                                data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                Info
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item" href="#">Ver</a>
+                                                              <!-- <a class="dropdown-item" href="#">editar</a>--> 
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="#"onclick="confirmar( `<%= hist.idHistorico%>`)">Eliminar</a>
                                                        
                                                               
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </td>
 
-                                            </tr>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                                <%}) %>
+
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>E-mail</th>
-                                                <th>Telefon*</th>
-                                                <th>Nif*</th>
-                                                <th>User Name*</th>
-                                               
+                                                <th>Genero</th>
+                                                <th>BI*</th>
+                                                <th>Telefone*</th>
+                                                <th>altura</th>
+                                                <th>Peso</th>
+                                                <th>Data</th>
+                                                <th>Hora</th>
 
                                             </tr>
                                         </tfoot>

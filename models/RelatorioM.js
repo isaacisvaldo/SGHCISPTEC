@@ -13,11 +13,28 @@ const RelatorioM = connection.define('relatorioM',{
           type:Sequelize.TEXT,
           allowNull:false
        },
+       tratamentoRealizadas:{
+         type:Sequelize.TEXT,
+         allowNull:false
+      },
+      
+      diagnosticoFeito:{
+         type:Sequelize.TEXT,
+         allowNull:false
+      },
+      suspeitaClinica:{
+         type:Sequelize.TEXT,
+         allowNull:false
+      },
+      internacoes:{
+         type:Sequelize.TEXT,
+         allowNull:false
+      },
      estado:{
       type:Sequelize.INTEGER,
       allowNull:false,
       default:0
-   },hora:{
+   },horaEntrada:{
       type:Sequelize.TIME,
       allowNull:false,
       default:0

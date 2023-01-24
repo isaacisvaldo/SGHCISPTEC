@@ -14,6 +14,26 @@ const RelatorioE = connection.define('relatorioE',{
           type:Sequelize.TEXT,
           allowNull:false
        },
+       consultasRealizadas:{
+         type:Sequelize.TEXT,
+         allowNull:false
+      },
+      tratamentoRealizadas:{
+         type:Sequelize.TEXT,
+         allowNull:false
+      },
+      diagnosticoFeito:{
+         type:Sequelize.TEXT,
+         allowNull:false
+      },
+      suspeitaClinica:{
+         type:Sequelize.TEXT,
+         allowNull:false
+      },
+      internacoes:{
+         type:Sequelize.TEXT,
+         allowNull:false
+      },
        hora:{
          type:Sequelize.TIME,
          allowNull:false,
