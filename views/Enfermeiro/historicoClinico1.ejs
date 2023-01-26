@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./Partes/head') %>
+
+
+    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
+        <div class="wrapper">
+            <%- include('./Partes/sidebar') %>
+                <div class="main">
+                    <%- include('./Partes/nav') %>
+
+                        <main class="content">
+                            <div class="container-fluid p-0">
+
+                                <h1 class="h3 mb-3">Historico # <%= historico.idHistorico %> </h1>
+            
+                                <div class="row">
+                                    <div class="col-md-4 col-xl-3">
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                        
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <img src="/uploads/fotoPerfil/user.png" alt="Stacie Hall" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                                                <h5 class="card-title mb-0"><%= historico.nomePaciente %> </h5>
+                                                <div class="text-muted mb-2"></div>
+            
+                                               
+                                            </div>
+                                           
+                                            <hr class="my-0" />
+                                            <div class="card-body">
+                                                <h5 class="h6 card-title">Informações de Contacto</h5>
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="mb-1"><span data-feather="home" class="feather-sm me-1"></span> <a href="#"><%= historico.enderecoPaciente %> </a></li>
+                                                    <li class="mb-1"><span data-feather="briefcase" class="feather-sm me-1"></span>  <a href="#"><%= historico.provincia %></a></li>
+                                                    <li class="mb-1"><span data-feather="map-pin" class="feather-sm me-1"></span> <a href="#"><%= historico.municipio %></a></li>
+                                                    <li class="mb-1"><span data-feather="phone" class="feather-sm"></span>  <a href="#"><%= historico.telefonePaciente %></a></li>
+                                                </ul>
+                                            </div>
+                                            <hr class="my-0" />
+                                            <div class="card-body">
+                                                <h5 class="h6 card-title">Sobre Paciente</h5>
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="mb-1"><span  class="feather-sm me-1"></span> Peso: <a href="#"> <%= historico.pesoPaciente %> Kg</a></li>
+                                                    <li class="mb-1"><span  class="feather-sm me-1"></span>Altura:  <a href="#"><%= historico.alturaPaciente%> Cm</a></li>
+                                                    <li class="mb-1"><span  class="feather-sm me-1"></span>Idade: <a href="#"><%= historico.municipio %></a></li>
+                                                    <li class="mb-1"><span  class="feather-sm"></span>  <a href="#"><%= historico.telefonePaciente %></a></li>
+                                                </ul>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+            
+                                    <div class="col-md-8 col-xl-9">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="card-actions float-end">
+                                                    <div class="dropdown position-relative">
+                                                        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+                                           <i class="align-middle" data-feather="more-horizontal"></i>
+                                                   </a>
+            
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            
+                                                            <a class="dropdown-item" href="#">Transferir Internamente</a>
+                                                            <a class="dropdown-item" href="#">Transferir Externamente</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               
+                                            </div>
+                                           
+                                            <div class="card-body h-100">
+            
+                                                <div class="d-flex align-items-start">
+                                                 
+                                                    <div class="flex-grow-1">
+                                                        
+                                                        <strong>Ashley Briggs</strong> started following <strong>Stacie Hall</strong><br />
+                                                        
+            
+                                                    </div>
+                                                </div>
+            
+                                                <hr />
+                                                <div class="d-flex align-items-start">
+                                                    <img src="img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2" alt="Chris Wood">
+                                                    <div class="flex-grow-1">
+                                                        <small class="float-end">30m ago</small>
+                                                        <strong>Chris Wood</strong> posted something on <strong>Stacie Hall</strong>'s timeline<br />
+                                                        <small class="text-muted">Today 7:21 pm</small>
+            
+                                                        <div class="border text-sm text-muted p-2 mt-1">
+                                                            Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus
+                                                            pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
+                                                        </div>
+            
+                                                        <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm" data-feather="heart"></i> Like</a>
+                                                    </div>
+                                                </div>
+            
+                                                <hr />
+                                                <div class="d-flex align-items-start">
+                                                    <img src="img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2" alt="Stacie Hall">
+                                                    <div class="flex-grow-1">
+                                                        <small class="float-end">1h ago</small>
+                                                        <strong>Stacie Hall</strong> posted a new blog<br />
+            
+                                                        <small class="text-muted">Today 6:35 pm</small>
+                                                    </div>
+                                                </div>
+            
+                                                <hr />
+                                                <div class="d-flex align-items-start">
+                                                    <img src="img/avatars/avatar-2.jpg" width="36" height="36" class="rounded-circle me-2" alt="Carl Jenkins">
+                                                    <div class="flex-grow-1">
+                                                        <small class="float-end">3h ago</small>
+                                                        <strong>Carl Jenkins</strong> posted two photos on <strong>Stacie Hall</strong>'s timeline<br />
+                                                        <small class="text-muted">Today 5:12 pm</small>
+            
+                                                        <div class="row g-0 mt-1">
+                                                            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                                                                <img src="img/photos/unsplash-1.jpg" class="img-fluid pe-2" alt="Unsplash">
+                                                            </div>
+                                                            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                                                                <img src="img/photos/unsplash-2.jpg" class="img-fluid pe-2" alt="Unsplash">
+                                                            </div>
+                                                        </div>
+            
+                                                        <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm" data-feather="heart"></i> Like</a>
+                                                    </div>
+                                                </div>
+            
+                                                <hr />
+                                                <div class="d-flex align-items-start">
+                                                    <img src="img/avatars/avatar-2.jpg" width="36" height="36" class="rounded-circle me-2" alt="Carl Jenkins">
+                                                    <div class="flex-grow-1">
+                                                        <small class="float-end">1d ago</small>
+                                                        <strong>Carl Jenkins</strong> started following <strong>Stacie Hall</strong><br />
+                                                        <small class="text-muted">Yesterday 3:12 pm</small>
+            
+                                                        <div class="d-flex align-items-start mt-1">
+                                                            <a class="pe-3" href="#">
+                            <img src="img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2" alt="Stacie Hall">
+                          </a>
+                                                            <div class="flex-grow-1">
+                                                                <div class="border text-sm text-muted p-2 mt-1">
+                                                                    Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                                <hr />
+                                                <div class="d-flex align-items-start">
+                                                    <img src="img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2" alt="Stacie Hall">
+                                                    <div class="flex-grow-1">
+                                                        <small class="float-end">1d ago</small>
+                                                        <strong>Stacie Hall</strong> posted a new blog<br />
+                                                        <small class="text-muted">Yesterday 2:43 pm</small>
+                                                    </div>
+                                                </div>
+            
+                                                <hr />
+                                                <div class="d-flex align-items-start">
+                                                    <img src="/img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2" alt="Chris Wood">
+                                                    <div class="flex-grow-1">
+                                                        <small class="float-end">1d ago</small>
+                                                        <strong>Chris Wood</strong> started following <strong>Stacie Hall</strong><br />
+                                                        <small class="text-muted">Yesterdag 1:51 pm</small>
+                                                    </div>
+                                                </div>
+            
+                                                <hr />
+                                                <div class="d-grid">
+                                                    <button type="button" class="btn btn-primary my-1" data-bs-toggle="modal"
+                                                    data-bs-target="#sizedModalLg">
+                                                    Novo Cadastro
+                                                </button>
+                                                </div>
+                                                <div class="modal fade" id="sizedModalLg" tabindex="-1" role="dialog"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Historico Clinico</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body m-3">
+                                                        <div class="card-body">
+                                                            <form method="post" action="/NovoHistorico">
+                                                               
+                                                                <div class="row">
+                                                                    <div class="mb-3 col-md-4">
+                                                                        <label class="form-label"
+                                                                            for="inputNome">Nome Paciente*</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="inputNome" placeholder="Nome" name="nomePaciente">
+                                                                    </div>
+                                                                    <div class="mb-3 col-md-4">
+                                                                        <label class="form-label"
+                                                                            for="inputEmail4">Genero</label>
+                                                                            <select name="sexoPaciente" id="" class="form-control">
+                                                                                <option value="M">Masculino</option>
+                                                                                <option value="F">Feminino</option>
+                                                                            </select>
+                                                                        
+                                                                    </div>
+                                                                    <div class="mb-3 col-md-4">
+                                                                        <label class="form-label"
+                                                                            for="inputEmail4">Data Nascimento</label>
+                                                                        <input type="date" class="form-control" required
+                                                                            id="inputEmail4" placeholder="date" name="nascimentoPaciente">
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div class="row">
+                                                                    <div class="mb-3 col-md-4">
+                                                                        <label class="form-label"
+                                                                            for="inputNome">Profissão*</label>
+                                                                            <select name="profissaoPaciente" id="" class="form-control">
+                                                                                <option value="Estudante"> Estudante</option>
+                                                                                <option value="Outros">Outros ...</option>
+                                                                            </select>
+                                                                        
+                                                                    </div>
+                                                                    <div class="mb-3 col-md-4">
+                                                                        <label class="form-label"
+                                                                            for="inputEmail4">Telefone</label>
+                                                                        <input type="number" class="form-control"
+                                                                            id="inputEmail4" placeholder="(+244)xxx.xxx.xxx" name="telefonePaciente">
+                                                                    </div>
+                                                                    <div class="mb-3 col-md-4">
+                                                                        <label class="form-label"
+                                                                            for="inputEmail4">Nº Bilhete</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="inputEmail4" placeholder="123456789LA00" name="biPaciente">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="mb-3 col-md-4">
+                                                                        <label class="form-label"
+                                                                            for="inputNome">Altura*</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="inputNome" placeholder="Altura..." name="alturaPaciente">
+                                                                    </div>
+                                                                    <div class="mb-3 col-md-4">
+                                                                        <label class="form-label"
+                                                                            for="inputEmail4">Peso*</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="inputEmail4" placeholder="Peso" name="pesoPaciente">
+                                                                    </div>
+                                                                    <div class="mb-3 col-md-4">
+                                                                        <label class="form-label"
+                                                                            for="inputEmail4">Remedio do Paciente</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="inputEmail4" placeholder="Remedios" name="remediosPaciente">
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <button type="submit"
+                                                                    class="btn btn-primary my-1">Registar Historico
+                                                                </button>
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                            </div>
+                        </main>
+
+                        <%- include('./Partes/footer') %>
+                </div>
+        </div>
+
+        <script src="/Dash/js/app.js"></script>
+        <script src="/Dash/js/ApiProvincia-municipio.js"></script>
+        <script src="/sweetalert/sweetalert2.all.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                $('#datatables-column-search-select-inputs').DataTable({
+                    initComplete: function () {
+                        this.api().columns().every(function () {
+                            var column = this;
+                            var select = $('<select class="form-control"><option value=""></option></select>')
+                                .appendTo($(column.footer()).empty())
+                                .on('change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
+                                    column
+                                        .search(val ? '^' + val + '$' : '', true, false)
+                                        .draw();
+                                });
+                            column.data().unique().sort().each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + '</option>')
+                            });
+                        });
+                    }
+                });
+            });
+        </script>
+        <script>
+            function confirmar(id) {
+
+                Swal.fire({
+                    title: 'Queres Deletar Este Historico ?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirmar',
+
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below   */
+                    if (result.isConfirmed) {
+
+                        window.location = '/DeletarHistorico/' + id;
+                    } else if (result.isDenied) {
+                        Swal.fire('Erro ao eliminar', '', 'info')
+                    }
+                })
+            }
+        </script>
+        <% if(errado.length>0) {%>
+            <script>
+                var Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    icon: 'error',
+                    title: '<%=errado %>'
+                })
+            </script>
+
+            <% }else if(certo.length>0) {%>
+                <script>
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: `<%= certo %>`
+                    })
+
+                </script>
+                <% }%>
+
+    </body>
+
+
+    <!-- Mirrored from appstack.bootlab.io/dashboard-default.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 22 Nov 2022 19:15:13 GMT -->
+
+</html>

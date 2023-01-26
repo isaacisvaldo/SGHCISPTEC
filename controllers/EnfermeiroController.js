@@ -80,6 +80,19 @@ async DeletarHistorico(req, res) {
         console.log(error)
     }
 }
+async HistoricosClinico1(req, res) {
+    try {
+     const {idHistorico}= req.params;
+        const idEnfermeiro = req.session.Enfermeiro.idEnfermeiro
+       const historico = await  Historico.findOne({where:{idHistorico:idHistorico}}).catch(erro => { console.log(erro) }) 
+        const enfermeiro = await Enfermeiro.findOne({ where: { idEnfermeiro: idEnfermeiro } }).catch(erro => { console.log(erro) }) 
+        res.render('Enfermeiro/historicoClinico1',{certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),enfermeiro,historico})
+        
+    } catch (error) {
+        res.json({ erro: "Ocorreu um problema" });
+        console.log(error)
+    }
+}
 
 
 

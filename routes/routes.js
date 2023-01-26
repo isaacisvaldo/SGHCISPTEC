@@ -21,6 +21,7 @@ router.post('/Autenticar', Conta.Autenticar); //Rota para fazer autenticação
 //Rotas Enfermeiro
 router.get('/DashboardEnfermeiro',EnfAuth,Enfermeiro.DashboardEnfermeiro)
 router.get('/HistoricosClinicos',EnfAuth,Enfermeiro.HistoricosClinicos)
+router.get('/HistoricosClinico1/:idHistorico',EnfAuth,Enfermeiro.HistoricosClinico1)
 router.post('/NovoHistorico',EnfAuth,Enfermeiro.NovoHistorico)
 router.get('/DeletarHistorico/:idHistorico',EnfAuth,Enfermeiro.DeletarHistorico)
 
