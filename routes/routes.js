@@ -4,10 +4,12 @@ const router = express.Router();
 const  Conta =require('../config/Conta');
 const  Administracao =require('../controllers/AdminController');
 const  Enfermeiro=require('../controllers/EnfermeiroController');
+const Medico = require ('../controllers/MedicoController')
 //middlewares
 const foto = require('../config/upload')
 const AuthAdmin = require('../middlewares/adminAuth')
 const EnfAuth = require('../middlewares/enferauth')
+const MedicoAuth = require('../middlewares/medicoAuth')
 const s = require('../middlewares/sessao')
 
 
@@ -30,6 +32,8 @@ router.post('/NovaTransferenciaInterna',EnfAuth,Enfermeiro.NovaTransferenciaInte
 router.post('/NovaTransferenciaExterna',EnfAuth,Enfermeiro.NovaTransferenciaExterna)
 router.post('/NovoRelatorio',EnfAuth,Enfermeiro.NovoRelatorio)
 
+//Rotas do Medico
+router.get('/DashboardMedico',MedicoAuth,Medico.DashboardMedico)
 
 //Rotas Administrativas
 router.get('/Dashboard',AuthAdmin,Administracao.Dashboard)

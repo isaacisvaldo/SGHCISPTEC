@@ -1,6 +1,7 @@
 
 const Admin = require('../models/Admin')
 const Enfermeiro = require('../models/Enfermeiro')
+const Medico = require('../models/Medico')
 
 
 //Dependencias
@@ -18,28 +19,18 @@ class Conta{
             if(email.length !=0 || !( /^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email))){
                 const enfermeiro = await Enfermeiro.findOne({ where: { [Op.or]: [{ email: email }, { username: email }] }}).catch(err => { console.log(err) })
                 const admin = await Admin.findOne({ where: { [Op.or]: [{ email: email }, { username: email }] } }).catch(err => { console.log(err) })
+                const medico = await Medico.findOne({ where: { [Op.or]: [{ email: email }, { username: email }] } }).catch(err => { console.log(err) })
                 if(enfermeiro != undefined){
                     var correct = bcrypt.compareSync(senha, enfermeiro.senha);
                     if(correct){
                      
     
-                      jwt.sign({idEnfermeiro: enfermeiro.idEnfermeiro, email: enfermeiro.email,acesso:0},JWTSecret,{expiresIn:'48h'}, async (err, token) => {
-                            if(err){
-                                res.status(400);
-                                req.flash('errado', "Erro ao Gerar Token") 
-                                res.redirect('/')
-                            }else{
-                               console.log(enfermeiro) 
-                                req.session.Enfermeiro = {
-                                    token:token,
-                                    idEnfermeiro: enfermeiro.idEnfermeiro,
-                                    
-                                 }
-                                res.redirect('/DashboardEnfermeiro')
-                               
-                               
-                            }
-                        })
+                        req.session.Enfermeiro = {
+                            
+                            idEnfermeiro: enfermeiro.idEnfermeiro,
+                            
+                         }
+                        res.redirect('/DashboardEnfermeiro')
                     }else{
                         req.flash('errado', "Credencias Inválida") 
                         res.redirect('/')
@@ -47,28 +38,34 @@ class Conta{
                 }else if(admin != undefined){
                     var correct = bcrypt.compareSync(senha, admin.senha);
                     if(correct){
-                        jwt.sign({idAdmin: admin.idAdmin, email: admin.email,acesso:1},JWTSecret,{expiresIn:'48h'},(err, token) => {
-                            if(err){
-                                res.status(400);
-                                res.json({err:"Falha interna"});
-                            }else{
-                                req.session.admin = {
-                                    token:token,
-                                    idAdmin:admin.idAdmin
-                                    
-                                 }
-                                 console.log(admin)
-                                res.redirect('/Dashboard')
-                                
-                            }
-                        })
+                        req.session.admin = {
+                            
+                            idAdmin:admin.idAdmin
+                            
+                         }
+                         console.log(admin)
+                        res.redirect('/Dashboard')
                     }else{
                         req.flash('errado', "Credencias Inválida") 
                         res.redirect('/')
                     }
-                }else {
-                    req.flash('errado', "e-mail desconhecido") 
+                }else if(medico !=undefined) {
+                    var correct = bcrypt.compareSync(senha, medico.senha);
+                    if(correct){
+                        req.session.medico = {
+                            
+                            idMedico:medico.idMedico
+                            
+                         }
+                        
+                        res.redirect('/DashboardMedico')
+                    }else{
+                        req.flash('errado', "Credencias Inválida") 
                         res.redirect('/')
+                    }
+                }else{
+                    req.flash('errado', "e-mail desconhecido") 
+                    res.redirect('/')
                 }
         
             }else{

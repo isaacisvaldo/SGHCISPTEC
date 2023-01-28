@@ -21,7 +21,13 @@
                     <div class="position-relative">
                         <i class="align-middle" data-feather="message-circle"></i>
                       
+                        <% if(trans.length == 0){%>
+ 
+                            <% }else if(trans.length > 9){%>
                            <span class="indicator">9+</span>
+                           <% }else{%>
+                            <span class="indicator"><%= trans.length%></span>
+                           <% }%>
                            
                        
                     </div>
@@ -39,15 +45,12 @@
                            
                             <div class="row g-0 align-items-center">
                                 <div class="col-2">
-                                    <img src="/uploads/fotoPerfil/<%= enfermeiro.image %> "
+                                    <img src="/uploads/fotoPerfil/<%= medico.image %> "
                                         class="avatar img-fluid rounded-circle" alt="Ashley Briggs">
                                 </div>
                                
                                 <div class="col-10 ps-2">
-                                    <div class="text-dark">Isaac</div>
-                                    <div class="text-muted small mt-1" >assunto.
-                                    <p style="max-width: 25ch;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Mensagen</p>
-                                    </div>
+                                    <div class="text-dark">Isaac</div>                                  
                                     
                                     <div class="text-muted small mt-1">Data: 01/12/2022 Hora: 21:12 </div>
                                 </div>
@@ -71,8 +74,8 @@
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                     data-bs-toggle="dropdown">
-                    <img src="/uploads/fotoPerfil/<%= enfermeiro.image%>" class="avatar img-fluid rounded-circle me-1"
-                        alt="Chris Wood" /> <span class="text-dark"><%= enfermeiro.username %> </span>
+                    <img src="/uploads/fotoPerfil/<%= medico.image%>" class="avatar img-fluid rounded-circle me-1"
+                        alt="Chris Wood" /> <span class="text-dark"><%= medico.username %> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="/perfilAdmin"><i class="align-middle me-1"
