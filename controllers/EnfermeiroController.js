@@ -4,8 +4,13 @@ const Admin = require('../models/Admin')
 const bcrypt = require('bcryptjs');
 const Op = require('sequelize').Op;
 const Historico = require('../models/Historicos')
+const TranferenciaInterna =require ('../models/TranferenciaInterna')
+const TranferenciaExterna=require ('../models/TranferenciaExterna')
+const Relatorio=require ('../models/RelatorioE')
+
 
 const axios = require("axios");
+const Medico = require('../models/Medico');
 
 
 class EnfermeiroController {
@@ -84,15 +89,101 @@ async HistoricosClinico1(req, res) {
     try {
      const {idHistorico}= req.params;
         const idEnfermeiro = req.session.Enfermeiro.idEnfermeiro
+   
+        const trans = await  TranferenciaInterna.findOne({where:{historicoidHistorico:idHistorico,estado:0}}).catch(erro => { console.log(erro) }) 
+        const trans2 = await  TranferenciaExterna.findOne({where:{historicoidHistorico:idHistorico,estado:0}}).catch(erro => { console.log(erro) }) 
+      console.log(trans)
        const historico = await  Historico.findOne({where:{idHistorico:idHistorico}}).catch(erro => { console.log(erro) }) 
         const enfermeiro = await Enfermeiro.findOne({ where: { idEnfermeiro: idEnfermeiro } }).catch(erro => { console.log(erro) }) 
-        res.render('Enfermeiro/historicoClinico1',{certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),enfermeiro,historico})
+        res.render('Enfermeiro/historicoClinico1',{trans,trans2,certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),enfermeiro,historico})
         
     } catch (error) {
         res.json({ erro: "Ocorreu um problema" });
         console.log(error)
     }
 }
+async ListarMedicos(req, res) {
+    try {
+        const {idHistorico}= req.params;
+        const idEnfermeiro = req.session.Enfermeiro.idEnfermeiro
+        const medico = await Medico.findAll({}).catch(erro => { console.log(erro) }) 
+       const enfermeiro = await Enfermeiro.findOne({ where: { idEnfermeiro: idEnfermeiro } }).catch(erro => { console.log(erro) }) 
+        res.render('Enfermeiro/listaMedico',{medico,idHistorico,certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),enfermeiro})
+        
+    } catch (error) {
+        res.json({ erro: "Ocorreu um problema" });
+        console.log(error)
+    }
+}
+async ListarHospitais(req, res) {
+    try {
+        const {idHistorico}= req.params;
+        const idEnfermeiro = req.session.Enfermeiro.idEnfermeiro
+       // const medico = await Medico.findAll({}).catch(erro => { console.log(erro) }) 
+       const enfermeiro = await Enfermeiro.findOne({ where: { idEnfermeiro: idEnfermeiro } }).catch(erro => { console.log(erro) }) 
+        res.render('Enfermeiro/listaHospitais',{idHistorico,certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),enfermeiro})
+        
+    } catch (error) {
+        res.json({ erro: "Ocorreu um problema" });
+        console.log(error)
+    }
+}
+async NovaTransferenciaExterna(req, res) {
+    try {
+        const {historicoidHistorico,detalheTrasferencia,local}= req.body;
+       
+        const horaTrasferencia =new Date().toLocaleTimeString();
+        const trsns = await TranferenciaExterna.create({historicoIdHistorico:historicoidHistorico,local,detalheTrasferencia,horaTrasferencia,estado:0}).catch(erro => { console.log(erro) }) 
+        if(trsns){
+            req.flash('certo', "Transferido com sucesso");
+                        res.redirect(`/HistoricosClinico1/${historicoidHistorico}`)
+          }else{
+            req.flash('errado', "Erro ao Tranferir");
+            res.redirect(`/HistoricosClinico1/${historicoidHistorico}`)
+          }
+    } catch (error) {
+        res.json({ erro: "Ocorreu um problema" });
+        console.log(error)
+    }
+}
+async NovaTransferenciaInterna(req, res) {
+    try {
+        const {historicoidHistorico,medicoidMedico,detalheTrasferencia}= req.body;
+       
+        const horaTrasferencia =new Date().toLocaleTimeString();
+        const trsns = await TranferenciaInterna.create({historicoidHistorico,medicoidMedico,detalheTrasferencia,horaTrasferencia,estado:0}).catch(erro => { console.log(erro) }) 
+        if(trsns){
+            req.flash('certo', "Transferido com sucesso");
+                        res.redirect(`/HistoricosClinico1/${historicoidHistorico}`)
+          }else{
+            req.flash('errado', "Erro ao Tranferir");
+            res.redirect(`/HistoricosClinico1/${historicoidHistorico}`)
+          }
+    } catch (error) {
+        res.json({ erro: "Ocorreu um problema" });
+        console.log(error)
+    }
+}
+
+async NovoRelatorio(req, res) {
+    try {
+        const {info,consultasRealizadas,tratamentoRealizadas,diagnosticoFeito,suspeitaClinica,internacoes,historicoIdHistorico}= req.body;
+        const enfermeiroIdEnfermeiro = req.session.Enfermeiro.idEnfermeiro
+        const hora =new Date().toLocaleTimeString();
+        const relatorio = await Relatorio.create({info,enfermeiroIdEnfermeiro,consultasRealizadas,tratamentoRealizadas,diagnosticoFeito,suspeitaClinica,internacoes,hora	,historicoIdHistorico,estado:0}).catch(erro => { console.log(erro) }) 
+        if(relatorio){
+            req.flash('certo', "Relatorio Registado com sucesso");
+                        res.redirect(`/HistoricosClinico1/${historicoIdHistorico}`)
+          }else{
+            req.flash('errado', "Erro ao Registar");
+            res.redirect(`/HistoricosClinico1/${historicoIdHistorico}`)
+          }
+    } catch (error) {
+        res.json({ erro: "Ocorreu um problema" });
+        console.log(error)
+    }
+}
+
 
 
 

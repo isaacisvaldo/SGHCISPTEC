@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./Partes/head') %>
+
+	<body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
+		<div class="wrapper">
+			<%- include('./Partes/sidebar') %>
+				<div class="main">
+					<%- include('./Partes/nav') %>
+
+						<main class="content">
+							<div class="container-fluid p-0">
+
+
+
+								<div class="row">
+									<div class="col-md-3 col-xl-2">
+
+										<div class="card">
+											<div class="card-header">
+												<h5 class="card-title mb-0">Definições </h5>
+											</div>
+
+											<div class="list-group list-group-flush" role="tablist">
+												<a class="list-group-item list-group-item-action active"
+													data-bs-toggle="list" href="#account" role="tab">
+													Conta
+												</a>
+												<a class="list-group-item list-group-item-action" data-bs-toggle="list"
+													href="#password" role="tab">
+													Senha
+												</a>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-9 col-xl-10">
+										<div class="tab-content">
+											<div class="tab-pane fade show active" id="account" role="tabpanel">
+
+												<div class="card">
+													<div class="card-header">
+														<div class="card-actions float-end">
+															<div class="dropdown position-relative">
+																<a href="#" data-bs-toggle="dropdown"
+																	data-bs-display="static">
+																	<i class="align-middle"
+																		data-feather="more-horizontal"></i>
+																</a>
+
+
+															</div>
+														</div>
+														<h5 class="card-title mb-0">Informações</h5>
+													</div>
+													<div class="card-body">
+														<form method="post" action="/EditarAdmin"
+															enctype="multipart/form-data">
+															<div class="row">
+																<div class="col-md-8">
+																	<div class="mb-3">
+																		<label for="inputUsername"
+																			class="form-label">Nome:<%= admin.nome %>
+																		</label><br>
+																		<label for="inputUsername"
+																			class="form-label">E-mail:<%= admin.email %>
+																		</label><br>
+																		<label for="inputUsername"
+																			class="form-label">User Name: <%=
+																				admin.username %></label><br>
+																		<label for="inputUsername"
+																			class="form-label">Telefone: <%=
+																				admin.telefone %></label><br>
+
+																	</div>
+
+																</div>
+																<div class="col-md-4">
+																	<div class="text-center">
+																		<img alt="Chris Wood"
+																			src="/uploads/fotoPerfil/<%= admin.image %> "
+																			class="rounded-circle img-responsive mt-2"
+																			width="128" height="128" />
+																		<div class="mt-2">
+
+																			<span class="btn btn-primary"><i class="fas fa-upload"></i>
+																					
+																					<div class="mb-3">
+																						<label for="formFile" class="form-label">Default file input example</label>
+																						<input class="form-control" type="file" id="formFile">
+																					  </div>
+																		</div>
+																		<small>For best results, use an image at least
+																			128px by 128px in .jpg format</small>
+																	</div>
+																</div>
+															</div>
+
+
+
+
+													</div>
+												</div>
+
+												
+											
+
+										</div>
+									</div>
+
+									<div class="card">
+										<div class="card-header">
+											
+											<h5 class="card-title mb-0">Private info</h5>
+										</div>
+										<div class="card-body">
+											
+												<div class="row">
+													<div class="mb-3 col-md-6">
+														<label for="inputFirstName" class="form-label">Nome*</label>
+														<input type="text" class="form-control" name="nome" id="inputFirstName" placeholder="First name" value="<%= admin.nome %>">
+													</div>
+													<div class="mb-3 col-md-6">
+														<label for="inputLastName" class="form-label">User </label>
+														<input type="text" class="form-control" id="inputLastName" name="username" placeholder="Last name" value="<%= admin.username %>">
+													</div>
+												</div>
+												<div class="mb-3">
+													<label for="inputEmail4" class="form-label">Email</label>
+													<input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" value="<%= admin.email %>">
+												</div>
+												<div class="mb-3">
+													<label for="inputAddress" class="form-label">Telefone</label>
+													<input type="text" class="form-control" id="inputAddress" placeholder="+244" name="telefone" value="<%= admin.telefone %>">
+												</div>
+												<div class="mb-3">
+													<label for="inputAddress2" class="form-label">NIF</label>
+													<input type="text" class="form-control" id="inputAddress2" placeholder="NIF" name="nif" value="<%= admin.nif %>">
+												</div>
+												
+												<button type="submit" class="btn btn-primary">Salvar alteracoes</button>
+											</form>
+
+													</div>
+												</div>
+										
+
+											</div>
+											<div class="tab-pane fade" id="password" role="tabpanel">
+												<div class="card">
+													<div class="card-body">
+														<h5 class="card-title">Password</h5>
+
+														<form method="post" action="/alterarSenha">
+															<div class="mb-3">
+																<label for="inputPasswordCurrent"
+																	class="form-label">Senha atual</label>
+																<input type="password" class="form-control"
+																	id="inputPasswordCurrent" name="senhaatual">
+																<small><a href="#">Forgot your password?</a></small>
+															</div>
+															<div class="mb-3">
+																<label for="inputPasswordNew" class="form-label">Nova
+																	senha*</label>
+																<input type="password" class="form-control"
+																	id="inputPasswordNew" name="senha">
+															</div>
+															<div class="mb-3">
+																<label for="inputPasswordNew2"
+																	class="form-label">Confirmar senha*</label>
+																<input type="password" class="form-control"
+																	id="inputPasswordNew2" name="senha2">
+															</div>
+															<button type="submit" class="btn btn-primary">Salvar
+																alterações</button>
+														</form>
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</main>
+
+						<footer class="footer">
+							<div class="container-fluid">
+								<div class="row text-muted">
+									<div class="col-6 text-start">
+										<ul class="list-inline">
+											<li class="list-inline-item">
+												<a class="text-muted" href="#">Support</a>
+											</li>
+											<li class="list-inline-item">
+												<a class="text-muted" href="#">Help Center</a>
+											</li>
+											<li class="list-inline-item">
+												<a class="text-muted" href="#">Privacy</a>
+											</li>
+											<li class="list-inline-item">
+												<a class="text-muted" href="#">Terms of Service</a>
+											</li>
+										</ul>
+									</div>
+									<div class="col-6 text-end">
+										<p class="mb-0">
+											&copy; 2022 - <a href="index.html" class="text-muted">AppStack</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						</footer>
+				</div>
+		</div>
+
+		<script src="/Dash/js/app.js"></script>
+		<script src="/sweetalert/sweetalert2.all.min.js"></script>
+		</script>
+		<% if(errado.length>0) {%>
+			<script>
+				var Toast = Swal.mixin({
+					toast: true,
+					position: 'top-end',
+					showConfirmButton: false,
+					timer: 3000,
+					timerProgressBar: true,
+					didOpen: (toast) => {
+						toast.addEventListener('mouseenter', Swal.stopTimer)
+						toast.addEventListener('mouseleave', Swal.resumeTimer)
+					}
+				})
+				Toast.fire({
+					icon: 'error',
+					title: '<%=errado %>'
+				})
+			</script>
+
+			<% }else if(certo.length>0) {%>
+				<script>
+
+					const Toast = Swal.mixin({
+						toast: true,
+						position: 'top-end',
+						showConfirmButton: false,
+						timer: 3000,
+						timerProgressBar: true,
+						didOpen: (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer)
+							toast.addEventListener('mouseleave', Swal.resumeTimer)
+						}
+					})
+
+					Toast.fire({
+						icon: 'success',
+						title: `<%= certo %>`
+					})
+
+				</script>
+				<% }%>
+
+	</body>
+
+
+	<!-- Mirrored from appstack.bootlab.io/pages-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 22 Nov 2022 19:15:35 GMT -->
+
+</html>

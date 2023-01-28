@@ -16,7 +16,7 @@
 
                                 <div class="row mb-2 mb-xl-3">
                                     <div class="col-auto d-none d-sm-block">
-                                        <h3>Médicos</h3>
+                                        <h3>Hospitais</h3>
                                     </div>
 
                                     <div class="col-auto ms-auto text-end mt-n1">
@@ -27,7 +27,7 @@
                                                 <i class="align-middle mt-n1" data-feather="calendar"></i> Hoje
                                             </a>
 
-                                          
+
                                         </div>
 
 
@@ -38,7 +38,7 @@
 
 
                                 <div class="card flex-fill">
-                                    <form method="post" action="/NovaTransferenciaInterna">
+                                    <form method="post" action="/NovaTransferenciaExterna">
                                         <input type="hidden" value="<%= idHistorico%>" name="historicoidHistorico">
                                         <div class="card">
                                             <div class="card-header pb-0">
@@ -50,35 +50,36 @@
                                                         <div class="form-floating">
                                                             <input type="text" class="form-control"
                                                                 id="floatingInputGrid" placeholder="Detalhes..."
-                                                              name="detalheTrasferencia"  >
+                                                                name="detalheTrasferencia">
                                                             <label for="floatingInputGrid">Informações
-                                                                
+
                                                             </label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md">
                                                         <div class="form-floating">
                                                             <select class="form-select" id="floatingSelectGrid"
-                                                                name="medicoidMedico">
+                                                                name="local">
+
+
+                                                                <option value="1">Maria Pia </option>
+                                                                    
                                                                
-                                                                <% medico.reverse().map(medico=>{ %>
-                                                                    <option value="<%= medico.idMedico%>">
-                                                                        <%= medico.nome%>
-                                                                    </option>
-                                                                    <%})%>
+
                                                             </select>
-                                                            <label for="floatingSelectGrid">Médico a Selecionar</label>
+                                                            <label for="floatingSelectGrid">Hospital a Selecionar</label>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
-                                        
-                               
-                                        <button type="submit" class="btn btn-primary my-1" style="float: right;">Registar Historico
-                                        </button> 
+
+
+                                        <button type="submit" class="btn btn-primary my-1"
+                                            style="float: right;">Registar Historico
+                                        </button>
 
                                     </form>
 

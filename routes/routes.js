@@ -24,6 +24,11 @@ router.get('/HistoricosClinicos',EnfAuth,Enfermeiro.HistoricosClinicos)
 router.get('/HistoricosClinico1/:idHistorico',EnfAuth,Enfermeiro.HistoricosClinico1)
 router.post('/NovoHistorico',EnfAuth,Enfermeiro.NovoHistorico)
 router.get('/DeletarHistorico/:idHistorico',EnfAuth,Enfermeiro.DeletarHistorico)
+router.get('/ListarMedicos/:idHistorico',EnfAuth,Enfermeiro.ListarMedicos)
+router.get('/ListarHospitais/:idHistorico',EnfAuth,Enfermeiro.ListarHospitais)
+router.post('/NovaTransferenciaInterna',EnfAuth,Enfermeiro.NovaTransferenciaInterna)
+router.post('/NovaTransferenciaExterna',EnfAuth,Enfermeiro.NovaTransferenciaExterna)
+router.post('/NovoRelatorio',EnfAuth,Enfermeiro.NovoRelatorio)
 
 
 //Rotas Administrativas

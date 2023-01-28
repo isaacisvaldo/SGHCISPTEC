@@ -11,8 +11,11 @@ const TrasferenciaExterna = connection.define('transferenciaexterna',{
       detalheTrasferencia:{
           type:Sequelize.TEXT,
           allowNull:false
-       },
-      local:{
+       },local:{
+         type:Sequelize.TEXT,
+         allowNull:false
+      },
+      estado:{
         type:Sequelize.INTEGER,
         allowNull:false,
         default:0
