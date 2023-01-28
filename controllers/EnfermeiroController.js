@@ -151,7 +151,7 @@ async NovaTransferenciaInterna(req, res) {
         const {historicoidHistorico,medicoidMedico,detalheTrasferencia}= req.body;
        
         const horaTrasferencia =new Date().toLocaleTimeString();
-        const trsns = await TranferenciaInterna.create({historicoidHistorico,medicoidMedico,detalheTrasferencia,horaTrasferencia,estado:0}).catch(erro => { console.log(erro) }) 
+        const trsns = await TranferenciaInterna.create({historicoIdHistorico:historicoidHistorico,medicoIdMedico:medicoidMedico,detalheTrasferencia,horaTrasferencia,estado:0}).catch(erro => { console.log(erro) }) 
         if(trsns){
             req.flash('certo', "Transferido com sucesso");
                         res.redirect(`/HistoricosClinico1/${historicoidHistorico}`)

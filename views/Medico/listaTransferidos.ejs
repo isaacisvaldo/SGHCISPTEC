@@ -16,7 +16,7 @@
 
                                 <div class="row mb-2 mb-xl-3">
                                     <div class="col-auto d-none d-sm-block">
-                                        <h3>Actividades</h3>
+                                        <h3>Ocorrencia Transferido</h3>
                                     </div>
 
                                     <div class="col-auto ms-auto text-end mt-n1">
@@ -54,41 +54,44 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h5 class="card-title mb-0">Actividades Realizadas</h5>
+                                     
                                     </div>
                                     <table id="datatables-column-search-select-inputs" class="table table-striped"
                                         style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Idade</th>
+                                                <th>Nascimento</th>
                                                 <th>Telefone*</th>
                                                 <th>Nif*</th>
                                                 <th>Data</th>
-                                                
-                                                <th>Acção</th>actividades
+                                                <th>Hora</th>
+                                                <th>Acção</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                           
-                                            <% actividades.reverse().map(en=>{ %>
+                                            <% trans.reverse().map(en=>{ %>
                                                 <tr>
                                                     <td>
-                                                        <%= en.nome %>
+                                                        <%= en.historico.nomePaciente %>
                                                     </td>
                                                     <td>
-                                                        <%= en.email %>
-                                                    </td>
-
-                                                    <td>
-                                                        <%= en.telefone %>
-                                                    </td>
-                                                    <td>
-                                                        <%= en.nif %>
+                                                        <%= en.historico.nascimentoPaciente %>
                                                     </td>
 
                                                     <td>
-                                                        <%= en.username %>
+                                                        <%= en.historico.telefonePaciente %>
+                                                    </td>
+                                                    <td>
+                                                        <%= en.historico.biPaciente %>
+                                                    </td>
+                                                    <td>
+                                                        <%= en.createdAt %>
+                                                    </td>
+
+                                                    <td>
+                                                        <%= en.horaTrasferencia%>
                                                     </td>
                                                     
                                                     <td>
