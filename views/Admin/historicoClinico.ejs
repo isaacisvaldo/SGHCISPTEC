@@ -109,7 +109,7 @@
                                                                 Info
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="#">Ver</a>
+                                                                <a class="dropdown-item" href="/listaHistorico1/<%= hist.idHistorico%>">Ver</a>
                                                               <!-- <a class="dropdown-item" href="#">editar</a>--> 
                                                                 <div class="dropdown-divider"></div>
                                                                 <a class="dropdown-item" href="#"onclick="confirmar( `<%= hist.idHistorico%>`)">Eliminar</a>
@@ -178,7 +178,7 @@
             function confirmar(id){
               
           Swal.fire({
-            title: 'Queres Deletar Este Usuario ?',
+            title: 'Queres Deletar Este Historico ?',
           icon:'warning',
             showCancelButton: true,
             confirmButtonColor:'#3085d6',
@@ -189,7 +189,7 @@
             /* Read more about isConfirmed, isDenied below   */
             if (result.isConfirmed) {
           
-             window.location = '/DeletarAdmin/'+id;
+             window.location = '/DeletarHistoricoAdmin/'+id;
             } else if (result.isDenied) {
               Swal.fire('Erro ao eliminar', '', 'info')
             }

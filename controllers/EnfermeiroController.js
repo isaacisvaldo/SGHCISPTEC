@@ -65,6 +65,7 @@ async DeletarHistorico(req, res) {
         const { idHistorico } = req.params;
         if (!isNaN(idHistorico)) {
             const historico = await Historico.destroy({ where: { idHistorico: idHistorico } })
+            const historico1 = await TranferenciaInterna.destroy({ where: { historicoIdHistorico: idHistorico } })
             if (historico) {
                 req.flash('certo', "Historico eliminado com sucesso!");
                 res.redirect('/HistoricosClinicos')
@@ -170,7 +171,7 @@ async NovoRelatorio(req, res) {
         const {info,consultasRealizadas,tratamentoRealizadas,diagnosticoFeito,suspeitaClinica,internacoes,historicoIdHistorico}= req.body;
         const enfermeiroIdEnfermeiro = req.session.Enfermeiro.idEnfermeiro
         const hora =new Date().toLocaleTimeString();
-        const relatorio = await Relatorio.create({info,enfermeiroIdEnfermeiro,consultasRealizadas,tratamentoRealizadas,diagnosticoFeito,suspeitaClinica,internacoes,hora	,historicoIdHistorico,estado:0}).catch(erro => { console.log(erro) }) 
+        const relatorio = await Relatorio.create({info,enfermeiroIdEnfermeiro,consultasRealizadas,tratamentoRealizadas,diagnosticoFeito,suspeitaClinica,internacoes,hora,historicoIdHistorico,estado:0}).catch(erro => { console.log(erro) }) 
         if(relatorio){
             req.flash('certo', "Relatorio Registado com sucesso");
                         res.redirect(`/HistoricosClinico1/${historicoIdHistorico}`)

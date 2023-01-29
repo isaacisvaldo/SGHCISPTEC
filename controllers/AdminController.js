@@ -3,7 +3,6 @@ const Enfermeiro = require('../models/Enfermeiro');
 const Medico = require('../models/Medico')
 const Admin = require('../models/Admin');
 const Historicos = require('../models/Historicos')
-
 const RelatorioE = require('../models/RelatorioE')
 const RelatorioM = require('../models/RelatorioM')
 const TranferenciaInterna = require('../models/TranferenciaInterna')
@@ -43,7 +42,6 @@ class AdminController {
             console.log(error)
         }
     }
-
 
     //Listar
     async listaEnfermeiro(req, res) {
@@ -88,6 +86,52 @@ class AdminController {
             console.log(error)
         }
     }
+    async listaHistorico1(req, res) {
+        try {
+            const {idHistorico}= req.params;
+            const idAdmin = req.session.admin.idAdmin
+            const trans = await  TranferenciaInterna.findOne({where:{historicoidHistorico:idHistorico,estado:0}}).catch(erro => { console.log(erro) }) 
+            const trans2 = await  TranferenciaExterna.findOne({where:{historicoidHistorico:idHistorico,estado:0}}).catch(erro => { console.log(erro) }) 
+          console.log(trans)
+           const historico = await  Historicos.findOne({where:{idHistorico:idHistorico}}).catch(erro => { console.log(erro) }) 
+           
+            const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
+            const actividades = await Actividades.findAll({}).catch(err => { console.log(err) })
+            res.render('Admin/historicoClinico1', {trans,trans2, historico,actividades, admin, certo: req.flash('certo'), errado: req.flash('errado'), info: req.flash('info') })
+
+
+        } catch (error) {
+            res.send("Ocorreu um problema")
+            console.log(error)
+        }
+    }
+    async DeletarHistorico(req, res) {
+        try {
+            const { idHistorico } = req.params;
+            if (!isNaN(idHistorico)) {
+                const historico = await Historicos.destroy({ where: { idHistorico: idHistorico } })
+                const historico1 = await TranferenciaInterna.destroy({ where: { historicoIdHistorico: idHistorico } })
+                if (historico) {
+                    req.flash('certo', "Historico eliminado com sucesso!");
+                    res.redirect('/listaHistoricos')
+    
+                } else {
+                    req.flash('errado', "Historico não Eliminado!");
+                    res.redirect('/listaHistoricos')
+                }
+            } else {
+                req.flash('errado', "Ocorreu um problema!");
+                res.redirect('/listaHistoricos')
+            }
+    
+    
+    
+        } catch (error) {
+            res.json({ errado: "Ocorreu um problema" })
+            console.log(error)
+        }
+    }
+  
     async listaActividade(req, res) {
         try {
             const idAdmin = req.session.admin.idAdmin
@@ -104,10 +148,67 @@ class AdminController {
     async TranferenciaInterna(req, res) {
         try {
             const idAdmin = req.session.admin.idAdmin
-            const tranferenciainterna = await TranferenciaInterna.findAll({}).catch(err => { console.log(err) })
+
+            const trans = await TranferenciaInterna.findAll({include: [{ model: Historicos }]}).catch(err => { console.log(err) })
             const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
             const actividades = await Actividades.findAll({}).catch(err => { console.log(err) })
-            res.render('Admin/transferenciainterna', {actividades, tranferenciainterna, admin, certo: req.flash('certo'), errado: req.flash('errado'), info: req.flash('info') })
+            res.render('Admin/transferenciainterna', {actividades, trans, admin, certo: req.flash('certo'), errado: req.flash('errado'), info: req.flash('info') })
+console.log(trans)
+
+        } catch (error) {
+            res.send("Ocorreu um problema")
+            console.log(error)
+        }
+    }
+    async TranferenciaInterna1(req, res) {
+        try {
+            const idAdmin = req.session.admin.idAdmin
+            const {idTransferencia}= req.params
+         
+            const trans = await TranferenciaInterna.findOne({where:{idTrasferencia:idTransferencia},include: [{ model: Historicos }]}).catch(err => { console.log(err) })
+            const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
+            const actividades = await Actividades.findAll({}).catch(err => { console.log(err) })
+            const medico = await Medico.findByPk(trans.medicoIdMedico).catch(err => { console.log(err) })
+            res.render('Admin/transferenciaInterna1', {actividades,medico, trans, admin, certo: req.flash('certo'), errado: req.flash('errado'), info: req.flash('info') })
+console.log(trans)
+
+        } catch (error) {
+            res.send("Ocorreu um problema")
+            console.log(error)
+        }
+    }
+    async DeletarTransInterna(req, res) {
+        try {
+            const { idTrasferencia } = req.params;
+            if (!isNaN(idTrasferencia)) {
+                const historico = await TranferenciaInterna.destroy({ where: { idTrasferencia: idTrasferencia } })
+                if (historico) {
+                    req.flash('certo', "Transferencia eliminado com sucesso!");
+                    res.redirect('/TranferenciaInterna')
+    
+                } else {
+                    req.flash('errado', "Transferencia não Eliminado!");
+                    res.redirect('/TranferenciaInterna')
+                }
+            } else {
+                req.flash('errado', "Ocorreu um problema!");
+                res.redirect('/TranferenciaInterna')
+            }
+    
+    
+    
+        } catch (error) {
+            res.json({ errado: "Ocorreu um problema" })
+            console.log(error)
+        }
+    }
+    async TranferenciaExterna(req, res) {
+        try {
+            const idAdmin = req.session.admin.idAdmin
+            const trans = await TranferenciaExterna.findAll({}).catch(err => { console.log(err) })
+            const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
+            const actividades = await Actividades.findAll({}).catch(err => { console.log(err) })
+            res.render('Admin/transferenciaexterna', {actividades, trans, admin, certo: req.flash('certo'), errado: req.flash('errado'), info: req.flash('info') })
 
 
         } catch (error) {
@@ -115,17 +216,44 @@ class AdminController {
             console.log(error)
         }
     }
-    async TranferenciaExterna(req, res) {
+    async TranferenciaExterna1(req, res) {
         try {
+            const{	idTrasferencia}= req.params
             const idAdmin = req.session.admin.idAdmin
-            const transferenciaexterna = await TranferenciaExterna.findAll({}).catch(err => { console.log(err) })
+            const trans = await TranferenciaExterna.findOne({where:{	idTrasferencia:	idTrasferencia}}).catch(err => { console.log(err) })
             const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
             const actividades = await Actividades.findAll({}).catch(err => { console.log(err) })
-            res.render('Admin/transferenciaexterna', {actividades, transferenciaexterna, admin, certo: req.flash('certo'), errado: req.flash('errado'), info: req.flash('info') })
+            const historico = await Historicos.findByPk(trans.historicoIdHistorico).catch(err => { console.log(err) })
+            res.render('Admin/transferenciaexterna1', {actividades,historico, trans, admin, certo: req.flash('certo'), errado: req.flash('errado'), info: req.flash('info') })
 
 
         } catch (error) {
             res.send("Ocorreu um problema")
+            console.log(error)
+        }
+    }
+    async DeletarTransExterna(req, res) {
+        try {
+            const { idTrasferencia } = req.params;
+            if (!isNaN(idTrasferencia)) {
+                const historico = await TranferenciaExterna.destroy({ where: { idTrasferencia: idTrasferencia } })
+                if (historico) {
+                    req.flash('certo', "Transferencia eliminado com sucesso!");
+                    res.redirect('/TranferenciaExterna')
+    
+                } else {
+                    req.flash('errado', "Transferencia não Eliminado!");
+                    res.redirect('/TranferenciaExterna')
+                }
+            } else {
+                req.flash('errado', "Ocorreu um problema!");
+                res.redirect('/TranferenciaExterna')
+            }
+    
+    
+    
+        } catch (error) {
+            res.json({ errado: "Ocorreu um problema" })
             console.log(error)
         }
     }
@@ -147,11 +275,11 @@ class AdminController {
     async RelatorioEnfermeiro(req, res) {
         try {
             const idAdmin = req.session.admin.idAdmin
-            const relatorioE = await RelatorioM.findAll({}).catch(err => { console.log(err) })
+            const relatorioE = await RelatorioE.findAll({}).catch(err => { console.log(err) })
             const actividades = await Actividades.findAll({}).catch(err => { console.log(err) })
             const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
             res.render('Admin/relatorioEnfermeiro', {actividades, relatorioE, admin, certo: req.flash('certo'), errado: req.flash('errado'), info: req.flash('info') })
-
+console.log(relatorioE)
 
         } catch (error) {
             res.send("Ocorreu um problema")
