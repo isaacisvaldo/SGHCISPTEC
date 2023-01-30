@@ -48,6 +48,7 @@
                                                     <li class="mb-1"><span  class="feather-sm me-1"></span> Peso: <a href="#"> <%= historico.pesoPaciente %> Kg</a></li>
                                                     <li class="mb-1"><span  class="feather-sm me-1"></span>Altura:  <a href="#"><%= historico.alturaPaciente%> Cm</a></li>
                                                     <li class="mb-1"><span  class="feather-sm me-1"></span>Idade: <a href="#"><%= historico.nascimentoPaciente %></a></li>
+                                                    <li class="mb-1"><span  class="feather-sm me-1"></span>Endereço: <a href="#"><%= historico.enderecoPaciente %></a></li>
                                                    
                                                 </ul>
 
@@ -55,17 +56,7 @@
                                             <hr class="my-0" />
                                             <div class="card-body">
                                                 <h5 class="h6 card-title">Transferir Historico</h5>
-                                                <% if(trans == null){%>
-                                                    <% if(trans2 == null){%>
-                                                    <div>
-                                                        <a class="btn btn-primary btn-sm" href="/ListarMedicos/<%= historico.idHistorico %> ">Interna</a>
-                                                        <a class="btn btn-primary btn-sm" href="/ListarHospitais/<%= historico.idHistorico %> "> Externa</a>
-                                                    </div>
-                                                    <%  } else{%>
-                                                        <a class="btn btn-primary btn-sm" href="">Baixar..</a>
-                                                        
-                                                        <%  }%>
-                                                    <%  }%>
+                                               
 
                                             </div>
                                             
@@ -85,7 +76,7 @@
                                                  
                                                     <div class="flex-grow-1">
                                                         
-                                                        <strong>Ashley Briggs</strong> started following <strong>Stacie Hall</strong><br />
+                                                        <strong>Informações Adicionais</strong> <br />
                                                         
             
                                                     </div>
@@ -93,106 +84,48 @@
             
                                                 <hr />
                                                 <div class="d-flex align-items-start">
-                                                    <img src="img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2" alt="Chris Wood">
                                                     <div class="flex-grow-1">
-                                                        <small class="float-end">30m ago</small>
-                                                        <strong>Chris Wood</strong> posted something on <strong>Stacie Hall</strong>'s timeline<br />
-                                                        <small class="text-muted">Today 7:21 pm</small>
-            
+                                                        
+                                                        <strong>BI:</strong> <%= historico.biPaciente %> <strong> <br> Profissão:</strong><%= historico.profissaoPaciente %> <br />
+                                                        <br>
+                                                        <br>
+                                                          <p>Remédios do Paciente</p>
                                                         <div class="border text-sm text-muted p-2 mt-1">
-                                                            Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus
-                                                            pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
+                                                            <%= historico.remediosPaciente %> 
                                                         </div>
-            
-                                                        <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm" data-feather="heart"></i> Like</a>
-                                                    </div>
-                                                </div>
-            
-                                                <hr />
-                                                <div class="d-flex align-items-start">
-                                                    <img src="img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2" alt="Stacie Hall">
-                                                    <div class="flex-grow-1">
-                                                        <small class="float-end">1h ago</small>
-                                                        <strong>Stacie Hall</strong> posted a new blog<br />
-            
-                                                        <small class="text-muted">Today 6:35 pm</small>
-                                                    </div>
-                                                </div>
-            
-                                                <hr />
-                                                <div class="d-flex align-items-start">
-                                                    <img src="img/avatars/avatar-2.jpg" width="36" height="36" class="rounded-circle me-2" alt="Carl Jenkins">
-                                                    <div class="flex-grow-1">
-                                                        <small class="float-end">3h ago</small>
-                                                        <strong>Carl Jenkins</strong> posted two photos on <strong>Stacie Hall</strong>'s timeline<br />
-                                                        <small class="text-muted">Today 5:12 pm</small>
-            
-                                                        <div class="row g-0 mt-1">
-                                                            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                                                                <img src="img/photos/unsplash-1.jpg" class="img-fluid pe-2" alt="Unsplash">
-                                                            </div>
-                                                            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                                                                <img src="img/photos/unsplash-2.jpg" class="img-fluid pe-2" alt="Unsplash">
-                                                            </div>
                                                         </div>
-            
-                                                        <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm" data-feather="heart"></i> Like</a>
-                                                    </div>
                                                 </div>
             
                                                 <hr />
                                                 <div class="d-flex align-items-start">
-                                                    <img src="img/avatars/avatar-2.jpg" width="36" height="36" class="rounded-circle me-2" alt="Carl Jenkins">
                                                     <div class="flex-grow-1">
-                                                        <small class="float-end">1d ago</small>
-                                                        <strong>Carl Jenkins</strong> started following <strong>Stacie Hall</strong><br />
-                                                        <small class="text-muted">Yesterday 3:12 pm</small>
+                                                        
+                                                        <strong>Uso de Susbtancias Toxicas</strong> <br>
+                                                       ex: cigaro,liamba outros :<%= historico.substToxicaPaciente %>  <br />
             
-                                                        <div class="d-flex align-items-start mt-1">
-                                                            <a class="pe-3" href="#">
-                            <img src="img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2" alt="Stacie Hall">
-                          </a>
-                                                            <div class="flex-grow-1">
-                                                                <div class="border text-sm text-muted p-2 mt-1">
-                                                                    Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
             
+   
                                                 <hr />
                                                 <div class="d-flex align-items-start">
-                                                    <img src="img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2" alt="Stacie Hall">
                                                     <div class="flex-grow-1">
-                                                        <small class="float-end">1d ago</small>
-                                                        <strong>Stacie Hall</strong> posted a new blog<br />
-                                                        <small class="text-muted">Yesterday 2:43 pm</small>
-                                                    </div>
-                                                </div>
-            
-                                                <hr />
-                                                <div class="d-flex align-items-start">
-                                                    <img src="/img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2" alt="Chris Wood">
-                                                    <div class="flex-grow-1">
-                                                        <small class="float-end">1d ago</small>
-                                                        <strong>Chris Wood</strong> started following <strong>Stacie Hall</strong><br />
-                                                        <small class="text-muted">Yesterdag 1:51 pm</small>
+                                                        <small class="float-end"> Data:<%= historico.createdAt %> </small>
+                                                        <strong>Data de Registro</strong> <br />
+                                                        <small class="text-muted">Hora:<%= historico.horaHistorico%> </small>
                                                     </div>
                                                 </div>
             
                                                 <hr />
                                                 <div class="d-grid">
-                                                    <% if(trans == null){%>
-                                                        <% if(trans2 == null){%>
-                                                       
+                                                    <!-- 
                                                             <button type="button" class="btn btn-primary my-1" data-bs-toggle="modal"
                                                             data-bs-target="#sizedModalLg">
                                                             Relatorio
-                                                           </button>
+                                                           </button>-->  
                                                         
-                                                        <%  }%>
-                                                        <%  }%>
+                                                      
                                                    
                                                 </div>
                                                 <div class="modal fade" id="sizedModalLg" tabindex="-1" role="dialog"
@@ -206,20 +139,20 @@
                                                     </div>
                                                     <div class="modal-body m-3">
                                                         <div class="card-body">
-                                                            <form method="post" action="/NovoRelatorio">
+                                                            <form method="post" action="/NovoRelatorioMedico">
                                                                
                                                                 <div class="row">
                                                                     <div class="mb-3 col-md-6">
                                                                         <label class="form-label"
                                                                             for="inputNome">Consultas Realizadas*</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="inputNome" placeholder="Consulta" name="consultasRealizadas">
+                                                                        <input type="text" class="form-control" required
+required                                                                             id="inputNome" placeholder="Consulta" name="consultasRealizadas">
                                                                     </div>
                                                                     <div class="mb-3 col-md-6">
                                                                         <label class="form-label"
                                                                         for="inputNome">tratamento Realizadas*</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="inputNome" placeholder="Consulta" name="tratamentoRealizadas">
+                                                                    <input type="text" class="form-control" required
+required                                                                         id="inputNome" placeholder="Consulta" name="tratamentoRealizadas">
                                                                 
                                                                         
                                                                     </div>
@@ -230,16 +163,16 @@
                                                                     <div class="mb-3 col-md-6">
                                                                         <label class="form-label"
                                                                             for="inputNome">diagnosticoFeito*</label>
-                                                                            <input type="text" class="form-control"
-                                                                        id="inputNome"  name="diagnosticoFeito">
+                                                                            <input type="text" class="form-control" required
+required                                                                         id="inputNome"  name="diagnosticoFeito">
                                                                 
                                                                         
                                                                     </div>
                                                                     <div class="mb-3 col-md-6">
                                                                         <label class="form-label"
                                                                             for="inputEmail4">suspeitaClinica</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="inputEmail4"  name="suspeitaClinica">
+                                                                        <input type="text" class="form-control" required
+required                                                                             id="inputEmail4"  name="suspeitaClinica">
                                                                     </div>
                                                                     
                                                                 </div>
@@ -247,20 +180,20 @@
                                                                     <div class="mb-3 col-md-12">
                                                                         <label class="form-label"
                                                                             for="inputNome">internacoes*</label>
-                                                                       <select name="internacoes" class="form-control" id="">
+                                                                       <select name="internacoes" class="form-control" required id="">
                                                                         <option value="Sim" disabled>Sim</option>
                                                                         <option value="Nao">Não</option>
                                                                        </select>
                                                                 </div>
                                                                   
-                                                                  <input type="text" name="historicoIdHistorico" value="<%= historico.idHistorico %> ">
+                                                                  <input type="hidden" name="historicoIdHistorico" value="<%= historico.idHistorico %> ">
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="mb-3 col-md-12">
                                                                         <label class="form-label"
                                                                             for="inputEmail4">Detalhes *</label>
                                                                             <div class="form-floating mb-3">
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="text" class="form-control" required 
                                                                                     id="floatingInputGrid" placeholder="Detalhes..."
                                                                                   name="info"  >
                                                                                 <label for="floatingInputGrid">
@@ -272,7 +205,7 @@
                                                                 
                                                                 
                                                                 <button type="submit" style="float: right;"
-                                                                    class="btn btn-primary my-1">Registar Historico
+                                                                    class="btn btn-primary my-1">Registar Relatorio
                                                                 </button>
                                                            
                                                             </form>
@@ -304,7 +237,7 @@
                     initComplete: function () {
                         this.api().columns().every(function () {
                             var column = this;
-                            var select = $('<select class="form-control"><option value=""></option></select>')
+                            var select = $('<select class="form-control">required <option value=""></option></select>')
                                 .appendTo($(column.footer()).empty())
                                 .on('change', function () {
                                     var val = $.fn.dataTable.util.escapeRegex(

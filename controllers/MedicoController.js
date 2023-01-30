@@ -2,6 +2,7 @@
 const Medico = require('../models/Medico')
 const TranferenciaInterna = require('../models/TranferenciaInterna')
 const Historico = require('../models/Historicos')
+const Relatorio=require ('../models/RelatorioM')
 
 const bcrypt = require('bcryptjs');
 const Op = require('sequelize').Op;
@@ -32,6 +33,39 @@ async Transferidos(req, res) {
         const medico = await Medico.findOne({ where: { idMedico: idMedico } }).catch(erro => { console.log(erro) }) 
         res.render('Medico/listaTransferidos',{trans,certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),medico})
         console.log(trans)
+    } catch (error) {
+        res.json({ erro: "Ocorreu um problema" });
+        console.log(error)
+    }
+}
+async HistoricosClinico1(req, res) {
+    try {
+     const {idHistorico}= req.params;
+     const idMedico = req.session.medico.idMedico
+
+     const trans = await TranferenciaInterna.findAll({where:{medicoIdMedico:idMedico,estado:0},include: [{ model: Historico }]}).catch(erro => { console.log(erro) }) 
+       const medico = await Medico.findOne({ where: { idMedico: idMedico } }).catch(erro => { console.log(erro) }) 
+       const historico = await  Historico.findOne({where:{idHistorico:idHistorico}}).catch(erro => { console.log(erro) }) 
+        res.render('Medico/historicoClinico1',{medico,trans,certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),historico})
+        
+    } catch (error) {
+        res.json({ erro: "Ocorreu um problema" });
+        console.log(error)
+    }
+}
+async NovoRelatorio(req, res) {
+    try {
+        const {info,consultasRealizadas,tratamentoRealizadas,diagnosticoFeito,suspeitaClinica,internacoes,historicoIdHistorico}= req.body;
+        const idMedico = req.session.medico.idMedico
+        const horaEntrada =new Date().toLocaleTimeString();
+        const relatorio = await Relatorio.create({info,enfermeiroIdEnfermeiro,consultasRealizadas,tratamentoRealizadas,diagnosticoFeito,suspeitaClinica,internacoes,horaEntrada,historicoIdHistorico,estado:0}).catch(erro => { console.log(erro) }) 
+        if(relatorio){
+            req.flash('certo', "Relatorio Registado com sucesso");
+                        res.redirect(`/HistoricosClinico1/${historicoIdHistorico}`)
+          }else{
+            req.flash('errado', "Erro ao Registar");
+            res.redirect(`/HistoricosClinico1/${historicoIdHistorico}`)
+          }
     } catch (error) {
         res.json({ erro: "Ocorreu um problema" });
         console.log(error)

@@ -57,12 +57,12 @@
                                                                         <label class="form-label"
                                                                             for="inputNome">Nome Paciente*</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="inputNome" placeholder="Nome" name="nomePaciente">
+                                                                            id="inputNome" placeholder="Nome" required name="nomePaciente">
                                                                     </div>
                                                                     <div class="mb-3 col-md-4">
                                                                         <label class="form-label"
                                                                             for="inputEmail4">Genero</label>
-                                                                            <select name="sexoPaciente" id="" class="form-control">
+                                                                            <select required name="sexoPaciente" id="" class="form-control">
                                                                                 <option value="M">Masculino</option>
                                                                                 <option value="F">Feminino</option>
                                                                             </select>
@@ -71,7 +71,7 @@
                                                                     <div class="mb-3 col-md-4">
                                                                         <label class="form-label"
                                                                             for="inputEmail4">Data Nascimento</label>
-                                                                        <input type="date" class="form-control" required
+                                                                        <input type="date"  class="form-control" required
                                                                             id="inputEmail4" placeholder="date" name="nascimentoPaciente">
                                                                     </div>
                                                                 </div>
@@ -80,7 +80,7 @@
                                                                     <div class="mb-3 col-md-4">
                                                                         <label class="form-label"
                                                                             for="inputNome">Profissão*</label>
-                                                                            <select name="profissaoPaciente" id="" class="form-control">
+                                                                            <select name="profissaoPaciente" required class="form-control">
                                                                                 <option value="Estudante"> Estudante</option>
                                                                                 <option value="Outros">Outros ...</option>
                                                                             </select>
@@ -90,12 +90,12 @@
                                                                         <label class="form-label"
                                                                             for="inputEmail4">Telefone</label>
                                                                         <input type="number" class="form-control"
-                                                                            id="inputEmail4" placeholder="(+244)xxx.xxx.xxx" name="telefonePaciente">
+                                                                            id="inputEmail4" required placeholder="(+244)xxx.xxx.xxx" name="telefonePaciente">
                                                                     </div>
                                                                     <div class="mb-3 col-md-4">
                                                                         <label class="form-label"
                                                                             for="inputEmail4">Nº Bilhete</label>
-                                                                        <input type="text" class="form-control"
+                                                                        <input type="text" class="form-control" required
                                                                             id="inputEmail4" placeholder="123456789LA00" name="biPaciente">
                                                                     </div>
                                                                 </div>
@@ -103,19 +103,19 @@
                                                                     <div class="mb-3 col-md-4">
                                                                         <label class="form-label"
                                                                             for="inputNome">Altura*</label>
-                                                                        <input type="text" class="form-control"
+                                                                        <input type="number" class="form-control" required
                                                                             id="inputNome" placeholder="Altura..." name="alturaPaciente">
                                                                     </div>
                                                                     <div class="mb-3 col-md-4">
                                                                         <label class="form-label"
                                                                             for="inputEmail4">Peso*</label>
-                                                                        <input type="text" class="form-control"
+                                                                        <input type="number" class="form-control"required
                                                                             id="inputEmail4" placeholder="Peso" name="pesoPaciente">
                                                                     </div>
                                                                     <div class="mb-3 col-md-4">
                                                                         <label class="form-label"
                                                                             for="inputEmail4">Remedio do Paciente</label>
-                                                                        <input type="text" class="form-control"
+                                                                        <input type="text" class="form-control" required
                                                                             id="inputEmail4" placeholder="Remedios" name="remediosPaciente">
                                                                     </div>
                                                                 </div>
@@ -171,7 +171,7 @@
                                                                     <div class="mb-3 col-md-12">
                                                                         <label class="form-label"
                                                                             for="inputNome">Endereço*</label>
-                                                                        <input type="text" class="form-control"
+                                                                        <input type="text" class="form-control" required
                                                                             id="inputNome" placeholder="Endereço..." name="enderecoPaciente">
                                                                     </div>
                                                                    

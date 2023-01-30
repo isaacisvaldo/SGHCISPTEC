@@ -2,6 +2,7 @@ const sequelize = require("sequelize");
 const Sequelize = require("sequelize");
 const connection = require("../database/database");
 const Trasferencia = require('./TranferenciaInterna')
+const Medico = require('../models/Medico')
 const RelatorioM = connection.define('relatorioM',{
    idRelatorioM:{
       type:Sequelize.INTEGER,
@@ -49,6 +50,9 @@ const RelatorioM = connection.define('relatorioM',{
  }
 });
 RelatorioM.belongsTo(Trasferencia);
+Medico.hasMany(RelatorioM,{
+   onDelete:'Cascade'  
+  });
 
 //RelatorioM.sync({force:true});
 module.exports = RelatorioM;
