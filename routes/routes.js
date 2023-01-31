@@ -28,9 +28,12 @@ router.post('/NovoHistorico',EnfAuth,Enfermeiro.NovoHistorico)
 router.get('/DeletarHistorico/:idHistorico',EnfAuth,Enfermeiro.DeletarHistorico)
 router.get('/ListarMedicos/:idHistorico',EnfAuth,Enfermeiro.ListarMedicos)
 router.get('/ListarHospitais/:idHistorico',EnfAuth,Enfermeiro.ListarHospitais)
+router.get('/TranferenciaExternaEnfermeiro',EnfAuth,Enfermeiro.TranferenciaExterna)
+router.get('/TranferenciaInternaEnfermeiro',EnfAuth,Enfermeiro.TranferenciaInterna)
 router.post('/NovaTransferenciaInterna',EnfAuth,Enfermeiro.NovaTransferenciaInterna)
 router.post('/NovaTransferenciaExterna',EnfAuth,Enfermeiro.NovaTransferenciaExterna)
 router.post('/NovoRelatorio',EnfAuth,Enfermeiro.NovoRelatorio)
+router.get('/MeusRelatorios',EnfAuth,Enfermeiro.MeusRelatorios)
 
 //Rotas do Medico
 router.get('/DashboardMedico',MedicoAuth,Medico.DashboardMedico)

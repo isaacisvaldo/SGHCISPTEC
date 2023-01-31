@@ -61,8 +61,8 @@
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Nome</th>
-                                                <th>Data</th>
+                                               <th>Tipo De transferencia</th>
+                                                <th>Data Transferencia</th>
                                                 <th>Hora</th>
                                                 <th>Local</th>                                        
                                                 <th>Acção</th>
@@ -70,13 +70,14 @@
                                         </thead>
                                         <tbody>
                                           
-                                            <% transferenciaexterna.reverse().map(tr=>{ %>
+                                            <% trans.reverse().map(tr=>{ %>
                                                 <tr>
                                                     
-                                                 <td></td>   
-                                                 <td></td>   
-                                                 <td></td>   
-                                                 <td></td>   
+                                                 <td><%= tr.idTrasferencia%></td>   
+                                                 <td>Externa</td>   
+                                                 <td><%= tr.createdAt%></td>   
+                                                 <td><%= tr.horaTrasferencia%></td>   
+                                                 <td><%= tr.local%></td>   
 
                                                     
                                                     <td>
@@ -87,10 +88,10 @@
                                                                 Info
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="#">Ver</a>                                                                       
-                                                                <a class="dropdown-item" href="#">editar</a>
+                                                                <a class="dropdown-item" href="/TranferenciaExterna1/<%= tr.idTrasferencia%>">Ver</a>                                                                       
+                                                               
                                                                 <div class="dropdown-divider"></div>
-                                                                <a class="dropdown-item" href="#"onclick="confirmar( `1`)">Eliminar</a>
+                                                                <a class="dropdown-item" href="#"onclick="confirmar( `<%= tr.idTrasferencia%>`)">Eliminar</a>
                                                            
                                                                   
                                                                 
@@ -103,11 +104,11 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>E-mail</th>
-                                                <th>Telefon*</th>
-                                                <th>Nif*</th>
-                                                <th>User Name*</th>
+                                                <th>Id</th>
+                                                <th>Tipo De transferencia</th>
+                                                 <th>Data Transferencia</th>
+                                                 <th>Hora</th>
+                                                 <th>Local</th> 
                                                
 
                                             </tr>
@@ -151,7 +152,7 @@
             function confirmar(id){
               
           Swal.fire({
-            title: 'Queres Deletar Este Usuario ?',
+            title: 'Queres Deletar Essa Transferencia?',
           icon:'warning',
             showCancelButton: true,
             confirmButtonColor:'#3085d6',
@@ -162,7 +163,7 @@
             /* Read more about isConfirmed, isDenied below   */
             if (result.isConfirmed) {
           
-             window.location = '/DeletarAdmin/'+id;
+             window.location = '/DeletarTransExterna/'+id;
             } else if (result.isDenied) {
               Swal.fire('Erro ao eliminar', '', 'info')
             }

@@ -20,8 +20,11 @@ class EnfermeiroController {
         try {
          
             const idEnfermeiro = req.session.Enfermeiro.idEnfermeiro
+            const meusralatorios = await Relatorio.findAll({where:{enfermeiroIdEnfermeiro:idEnfermeiro}}).catch(err => { console.log(err) })
+            const historico = await  Historico.findAll({}).catch(erro => { console.log(erro) }) 
+       
             const enfermeiro = await Enfermeiro.findOne({ where: { idEnfermeiro: idEnfermeiro } }).catch(erro => { console.log(erro) }) 
-            res.render('Enfermeiro/index',{certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),enfermeiro})
+            res.render('Enfermeiro/index',{historico,meusralatorios,certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),enfermeiro})
             
         } catch (error) {
             res.json({ erro: "Ocorreu um problema" });
@@ -165,7 +168,6 @@ async NovaTransferenciaInterna(req, res) {
         console.log(error)
     }
 }
-
 async NovoRelatorio(req, res) {
     try {
         const {info,consultasRealizadas,tratamentoRealizadas,diagnosticoFeito,suspeitaClinica,internacoes,historicoIdHistorico}= req.body;
@@ -181,6 +183,50 @@ async NovoRelatorio(req, res) {
           }
     } catch (error) {
         res.json({ erro: "Ocorreu um problema" });
+        console.log(error)
+    }
+}
+async TranferenciaInterna(req, res) {
+    try {
+      
+        const idEnfermeiro = req.session.Enfermeiro.idEnfermeiro
+        const trans = await TranferenciaInterna.findAll({include: [{ model: Historico }]}).catch(err => { console.log(err) })
+        
+       const enfermeiro = await Enfermeiro.findOne({ where: { idEnfermeiro: idEnfermeiro } }).catch(erro => { console.log(erro) }) 
+        res.render('Enfermeiro/transferenciainterna',{trans,certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),enfermeiro})
+        
+    
+    } catch (error) {
+        res.send("Ocorreu um problema")
+        console.log(error)
+    }
+}
+async TranferenciaExterna(req, res) {
+    try {
+      
+        const trans = await TranferenciaExterna.findAll({}).catch(err => { console.log(err) })
+       
+        const idEnfermeiro = req.session.Enfermeiro.idEnfermeiro
+       
+       const enfermeiro = await Enfermeiro.findOne({ where: { idEnfermeiro: idEnfermeiro } }).catch(erro => { console.log(erro) }) 
+        res.render('Enfermeiro/transferenciainterna',{trans,certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),enfermeiro})
+        
+    } catch (error) {
+        res.send("Ocorreu um problema")
+        console.log(error)
+    }
+}
+
+async MeusRelatorios(req, res) {
+    try {
+        const idEnfermeiro = req.session.Enfermeiro.idEnfermeiro
+        const meusralatorios = await Relatorio.findAll({where:{enfermeiroIdEnfermeiro:idEnfermeiro}}).catch(err => { console.log(err) })
+        
+        const enfermeiro = await Enfermeiro.findOne({ where: { idEnfermeiro: idEnfermeiro } }).catch(erro => { console.log(erro) }) 
+        res.render('Enfermeiro/meusRelatorios',{meusralatorios,certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),enfermeiro})
+        
+    } catch (error) {
+        res.send("Ocorreu um problema")
         console.log(error)
     }
 }
