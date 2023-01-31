@@ -136,6 +136,7 @@ class AdminController {
         try {
             const idAdmin = req.session.admin.idAdmin
             const actividades = await Actividades.findAll({}).catch(err => { console.log(err) })
+            
             const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
             res.render('Admin/listaractividades', { actividades, admin, certo: req.flash('certo'), errado: req.flash('errado'), info: req.flash('info') })
 
