@@ -46,7 +46,7 @@ async HistoricosClinico1(req, res) {
      const trans = await TranferenciaInterna.findAll({where:{medicoIdMedico:idMedico,estado:0},include: [{ model: Historico }]}).catch(erro => { console.log(erro) }) 
        const medico = await Medico.findOne({ where: { idMedico: idMedico } }).catch(erro => { console.log(erro) }) 
        const historico = await  Historico.findOne({where:{idHistorico:idHistorico}}).catch(erro => { console.log(erro) }) 
-        res.render('Medico/historicoClinico1',{medico,trans,certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),historico})
+        res.render('Medico/Transferido1',{medico,trans,certo:req.flash('certo'),errado:req.flash('errado'),info:req.flash('info'),historico})
         
     } catch (error) {
         res.json({ erro: "Ocorreu um problema" });
@@ -55,16 +55,16 @@ async HistoricosClinico1(req, res) {
 }
 async NovoRelatorio(req, res) {
     try {
-        const {info,consultasRealizadas,tratamentoRealizadas,diagnosticoFeito,suspeitaClinica,internacoes,historicoIdHistorico}= req.body;
-        const idMedico = req.session.medico.idMedico
+        const {info	,tratamentoRealizadas	,diagnosticoFeito,	suspeitaClinica	,internacoes	,estado	,transferenciainternaIdTrasferencia}= req.body;
+        const medicoIdMedico = req.session.medico.idMedico
         const horaEntrada =new Date().toLocaleTimeString();
-        const relatorio = await Relatorio.create({info,enfermeiroIdEnfermeiro,consultasRealizadas,tratamentoRealizadas,diagnosticoFeito,suspeitaClinica,internacoes,horaEntrada,historicoIdHistorico,estado:0}).catch(erro => { console.log(erro) }) 
+        const relatorio = await Relatorio.create({info	,tratamentoRealizadas,	horaEntrada,diagnosticoFeito,	suspeitaClinica	,internacoes	,estado	,transferenciainternaIdTrasferencia,medicoIdMedico,estado:0}).catch(erro => { console.log(erro) }) 
         if(relatorio){
             req.flash('certo', "Relatorio Registado com sucesso");
-                        res.redirect(`/HistoricosClinico1/${historicoIdHistorico}`)
+                        res.redirect(`/HistoricosClinico1Medico/${historicoIdHistorico}`)
           }else{
             req.flash('errado', "Erro ao Registar");
-            res.redirect(`/HistoricosClinico1/${historicoIdHistorico}`)
+            res.redirect(`/HistoricosClinico1Medico/${historicoIdHistorico}`)
           }
     } catch (error) {
         res.json({ erro: "Ocorreu um problema" });

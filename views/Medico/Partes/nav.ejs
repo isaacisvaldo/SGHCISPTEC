@@ -40,9 +40,9 @@
                         </div>
                     </div>
                     <div class="list-group">
-                        
-                        <a href="#" class="list-group-item">
-                            <%trans.slice(0,4).map(en=>{ %>
+                        <%trans.slice(0,4).map(en=>{ %>
+                        <a href="/HistoricosClinico1Medico/<%= en.historico.idHistorico%>" class="list-group-item">
+                            
                             <div class="row g-0 align-items-center">
                                 <div class="col-2">
                                     <img src="/uploads/fotoPerfil/<%= medico.image %> "
@@ -56,9 +56,10 @@
                                 </div>
                                
                             </div>
-                            <%})%>
+                           
                            
                         </a>
+                        <%})%>
                        
                     </div>
                     <div class="dropdown-menu-footer">

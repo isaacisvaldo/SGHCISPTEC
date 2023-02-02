@@ -39,6 +39,7 @@ router.get('/MeusRelatorios',EnfAuth,Enfermeiro.MeusRelatorios)
 router.get('/DashboardMedico',MedicoAuth,Medico.DashboardMedico)
 router.get('/Transferidos',MedicoAuth,Medico.Transferidos)
 router.get('/HistoricosClinico1Medico/:idHistorico',MedicoAuth,Medico.HistoricosClinico1)
+router.post('/NovoRelatorioMedico',MedicoAuth,Medico.NovoRelatorio)
 
 //Rotas Administrativas
 router.get('/Dashboard',AuthAdmin,Administracao.Dashboard)
