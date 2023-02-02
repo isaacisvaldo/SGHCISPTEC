@@ -20,9 +20,11 @@ class AdminController {
     async Dashboard(req, res) {
         try {
             const idAdmin = req.session.admin.idAdmin
+            const historico = await Historicos.findAll({}).catch(err => { console.log(err) })
+           
             const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
             const actividades = await Actividades.findAll({}).catch(err => { console.log(err) })
-            res.render('Admin/index', { admin ,actividades})
+            res.render('Admin/index', { admin ,actividades,historico})
         } catch (error) {
             res.send("Ocorreu um problema")
             console.log(error)
@@ -146,6 +148,7 @@ class AdminController {
             console.log(error)
         }
     }
+   
     async TranferenciaInterna(req, res) {
         try {
             const idAdmin = req.session.admin.idAdmin
@@ -555,19 +558,19 @@ console.log(relatorioE)
         try {
             const { idActividade } = req.params;
             if (!isNaN(idActividade)) {
-                const actividade = await Actividade.destroy({ where: { idActividade: idActividade } })
+                const actividade = await Actividades.destroy({ where: { idActividade: idActividade } })
                 if (actividade) {
                     req.flash('certo', "Actividade eliminado com sucesso!");
-                    res.redirect('/ListarAcesso')
+                    res.redirect('/listaActividade')
 
                 } else {
                     req.flash('errado', "actividade não Eliminado!");
-                    res.redirect('/ListarAcesso')
+                    res.redirect('/listaActividade')
                 }
             } else {
 
                 req.flash('errado', "Ocorreu um problema ao deletar!");
-                res.redirect('/ListarAcesso')
+                res.redirect('/listaActividade')
             }
 
 
@@ -578,106 +581,7 @@ console.log(relatorioE)
         }
     }
     //Fim Deletar
-    async NovoParceiro(req, res) {
-        try {
-            const { nomeParceiro, emailParceiro, telefoneParceiro, tipoParceria } = req.body
-            if (nome.length < 5) {
-                req.flash('errado', "Nome Demasiado Curto")
-                res.redirect('/');
 
-            } else if (!(/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email))) {
-
-                req.flash('errado', "E-mail Invalido")
-                res.redirect('/');
-            } else if (!(/^[9]{1}[0-9]{8}$/.test(telefone))) {
-
-
-                req.flash('errado', "Numero de Telefone incorreto")
-                res.redirect('/');
-            } else {
-                if (!(req.file)) {
-                    req.flash('errado', "Foto Não submetido")
-                    res.redirect('/');
-                }
-                else {
-                    const estadoParceiro = 0;
-                    const imageParceiro = (req.file) ? req.file.filename : 'parceiro.jpg';
-                    const par = await Parceiros.create(nomeParceiro, emailParceiro, telefoneParceiro, tipoParceria, imageParceiro, estadoParceiro).catch(err => { console.log(err) })
-                    if (par) {
-                        req.flash('certo', "Perceiro  Cadastrado !")
-                        res.redirect('/');
-                    } else {
-                        req.flash('errado', "Perceiro Não Cadastrado")
-                        res.redirect('/');
-                    }
-
-                }
-
-            }
-
-
-
-        } catch (error) {
-            req.flash('errado', "Ocorreu um Problema")
-            res.redirect('/');
-            console.log(error)
-        }
-    }
-
-
-
-    //Cultural Seguro
-    async listaUsuarioC(req, res) {
-
-        try {
-
-            const token = req.session.admin.token
-            const idAdmin = req.session.admin.idAdmin
-            const ins = await Inscritos.findAll({}).catch(err => { console.log(err) })
-            const feedbak = await Feedbak.findAll({ where: { estadoFeedbak: 1 }, include: [{ model: Enfermeiro }] }).catch(err => { console.log(err); });
-
-            const cliente = await Enfermeiro.findAll({}).catch(err => { console.log(err) })
-            const solicitacao = await Solicitacao.findAll({ where: { estado: 0 } }).catch(err => { console.log(err) })
-            const parceiros = await Parceiros.findAll().catch(err => { console.log(err) })
-            const actividades = await Actividade.findAll({ include: [{ model: Enfermeiro }] }).catch(err => { console.log(err) })
-            const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
-
-
-            res.render('Admin/CulturalSeguro/listaUsuario', { token, cliente, admin, solicitacao, actividades, feedbak, parceiros, ins })
-
-
-        } catch (error) {
-            res.send("Ocorreu um problema")
-            console.log(error)
-        }
-    }
-    async painelGeralC(req, res) {
-
-        try {
-
-            const token = req.session.admin.token
-            const idAdmin = req.session.admin.idAdmin
-            const ins = await Inscritos.findAll({}).catch(err => { console.log(err) })
-            const feedbak = await Feedbak.findAll({ where: { estadoFeedbak: 1 }, include: [{ model: Enfermeiro }] }).catch(err => { console.log(err); });
-
-            const cliente = await Enfermeiro.findAll({}).catch(err => { console.log(err) })
-            const solicitacao = await Solicitacao.findAll({ where: { estado: 0 } }).catch(err => { console.log(err) })
-            const parceiros = await Parceiros.findAll().catch(err => { console.log(err) })
-            const actividades = await Actividade.findAll({ include: [{ model: Enfermeiro }] }).catch(err => { console.log(err) })
-            const admin = await Admin.findOne({ where: { idAdmin: idAdmin } }).catch(erro => { console.log(erro) })
-
-
-            res.render('Admin/CulturalSeguro/painelGeral', { token, cliente, admin, solicitacao, actividades, feedbak, parceiros, ins })
-
-
-        } catch (error) {
-            res.send("Ocorreu um problema")
-            console.log(error)
-        }
-    }
-
-
-    //Fim cultural seguro
 
 
 

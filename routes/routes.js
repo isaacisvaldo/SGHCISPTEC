@@ -61,6 +61,7 @@ router.get('/DeletarEnfermeiro/:idEnfermeiro',AuthAdmin,Administracao.DeletarEnf
 router.get('/DeletarMedico/:idMedico',AuthAdmin,Administracao.DeletarMedico)
 router.get('/listaHistorico1/:idHistorico',AuthAdmin,Administracao.listaHistorico1)
 router.get('/DeletarHistoricoAdmin/:idHistorico',AuthAdmin,Administracao.DeletarHistorico)
+router.get('/DeletarActividade/:idActividade',AuthAdmin,Administracao.DeletarActividade)
 
 
  //Admin Editar o seu perfil

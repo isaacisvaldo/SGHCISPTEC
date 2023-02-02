@@ -60,13 +60,13 @@
                                         style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Idade</th>
-                                                <th>Telefone*</th>
-                                                <th>Nif*</th>
+                                                <th>#</th>
+                                                <th>Nome</th>
+                                                <th>Execução</th>
                                                 <th>Data</th>
+                                                <th>Hora</th>
                                                 
-                                                <th>Acção</th>actividades
+                                                <th>Acção</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -74,21 +74,21 @@
                                             <% actividades.reverse().map(en=>{ %>
                                                 <tr>
                                                     <td>
-                                                        <%= en.nome %>
+                                                        <%= en.	idActividades %>
                                                     </td>
                                                     <td>
-                                                        <%= en.email %>
-                                                    </td>
-
-                                                    <td>
-                                                        <%= en.telefone %>
-                                                    </td>
-                                                    <td>
-                                                        <%= en.nif %>
+                                                        <%= en.nome	 %>
                                                     </td>
 
                                                     <td>
-                                                        <%= en.username %>
+                                                        <%= en.info %>
+                                                    </td>
+                                                    <td>
+                                                        <%= en.createdAt%>
+                                                    </td>
+
+                                                    <td>
+                                                        <%= en.hora %>
                                                     </td>
                                                     
                                                     <td>
@@ -100,9 +100,8 @@
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item" href="#">Ver</a>                                                                       
-                                                                <a class="dropdown-item" href="#">editar</a>
                                                                 <div class="dropdown-divider"></div>
-                                                                <a class="dropdown-item" href="#"onclick="confirmar( `<%= en.idAdmin%>`)">Eliminar</a>
+                                                                <a class="dropdown-item" href="#"onclick="confirmar( `<%= en.idActividades %>`)">Eliminar</a>
                                                            
                                                                   
                                                                 
@@ -115,11 +114,11 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>E-mail</th>
-                                                <th>Telefon*</th>
-                                                <th>Nif*</th>
-                                                <th>User Name*</th>
+                                                <th>#</th>
+                                                <th>Nome</th>
+                                                <th>Execução</th>
+                                                <th>Data</th>
+                                                <th>Hora</th>
                                                
 
                                             </tr>
@@ -163,7 +162,7 @@
             function confirmar(id){
               
           Swal.fire({
-            title: 'Queres Deletar Este Usuario ?',
+            title: 'Queres Deletar Esta Actividade ?',
           icon:'warning',
             showCancelButton: true,
             confirmButtonColor:'#3085d6',
@@ -174,7 +173,7 @@
             /* Read more about isConfirmed, isDenied below   */
             if (result.isConfirmed) {
           
-             window.location = '/DeletarAdmin/'+id;
+             window.location = '/DeletarActividade/'+id;
             } else if (result.isDenied) {
               Swal.fire('Erro ao eliminar', '', 'info')
             }

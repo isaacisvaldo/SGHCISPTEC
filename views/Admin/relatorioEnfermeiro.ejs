@@ -16,7 +16,7 @@
 
                                 <div class="row mb-2 mb-xl-3">
                                     <div class="col-auto d-none d-sm-block">
-                                        <h3>Administradores</h3>
+                                        <h3>Relatorios Dos Enfermeiros</h3>
                                     </div>
 
                                     <div class="col-auto ms-auto text-end mt-n1">
@@ -61,8 +61,7 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Nome</th>
-                                                <th>E-mail</th>
+                                                <th>Internações</th>
                                                 <th>Data</th>
                                                 <th>Hora</th>
                                                 <th>Acção</th>
@@ -70,13 +69,13 @@
                                         </thead>
                                         <tbody>
                                           
-                                            <% relatorioE.reverse().map(tr=>{ %>
+                                            <% relatorioE.reverse().map(m=>{ %>
                                                 <tr>
                                                     
-                                                 <td></td>   
-                                                 <td></td>   
-                                                 <td></td>   
-                                                 <td></td>   
+                                                 <td><%= m.idRelatorioE %></td>   
+                                                 <td><%= m.internacoes %></td>   
+                                                 <td>  <%= m.createdAt %></td>   
+                                                 <td><%= m.hora %></td>   
 
                                                     
                                                     <td>
@@ -103,11 +102,11 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>E-mail</th>
-                                                <th>Telefon*</th>
-                                                <th>Nif*</th>
-                                                <th>User Name*</th>
+                                                <th>#</th>
+                                                <th>Internações</th>
+                                               
+                                                <th>Data</th>
+                                                <th>Hora</th>
                                                
 
                                             </tr>
